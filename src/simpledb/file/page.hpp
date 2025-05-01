@@ -24,6 +24,7 @@ public:
     std::vector<char>* contents();    
 
 private:
+    // TODO: Change to non-paged memory
     std::vector<char> d_data;
  
 };

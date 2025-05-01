@@ -1,7 +1,7 @@
 #include "file_manager.hpp"
 
 #include <filesystem>
-
+#include <iostream>
 namespace simpledb::file {
 
 FileManager::FileManager(std::string_view dirname, int blockSize)
@@ -43,10 +43,14 @@ void FileManager::write(const BlockId& blockId, Page* page) {
 BlockId FileManager::append(std::string filename) {
     int new_block_number = length(filename);
     BlockId blkId{filename, new_block_number};
-    std::vector<char> buffer(d_blockSize);
+    std::vector<char> buffer(d_blockSize, 0);
     auto file = getFile(filename);
+    if (!file->good()) {
+        throw std::runtime_error("FileManager::append: file is not good");
+    }
     file->seekp(0, std::ios::end);
     file->write(buffer.data(), d_blockSize);
+    file->flush();
     return blkId;
 }
 
@@ -69,7 +73,12 @@ std::shared_ptr<std::fstream> FileManager::getFile(std::string fileName) {
     if (iter != d_openFiles.end()) {
         return iter->second;
     }
-    auto file = std::make_shared<std::fstream>(d_dirname + "/" + fileName, std::ios::in | std::ios::out);
+    auto full_file_name = d_dirname + "/" + fileName;
+    std::cout << "AAA" << full_file_name << std::endl;
+    auto file = std::make_shared<std::fstream>(full_file_name, std::fstream::in | std::fstream::out | std::fstream::trunc );
+    if (!file->good()) {
+        throw std::runtime_error("FileManager::getFile: file is not good");
+    }
     d_openFiles.emplace(fileName, file);
     return file;
 }

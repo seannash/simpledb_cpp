@@ -1,5 +1,6 @@
 #include "block_id.hpp"
-#include <fmt/format.h>
+#include <sstream>
+
 namespace simpledb::file {
 
 BlockId::BlockId(std::string_view filename, int blockNumber)
@@ -22,7 +23,9 @@ bool BlockId::operator!=(const BlockId& other) const {
 }   
 
 std::string BlockId::toString() const {
-    return fmt::format("BlockId(filename={}, blockNumber={})", d_filename, d_blockNumber);
+    std::stringstream ss {};
+    ss << "BlockId(filename=" << d_filename << ", blockNumber=" << d_blockNumber << ")";
+    return ss.str();
 }   
 
 } // namespace simpledb::file

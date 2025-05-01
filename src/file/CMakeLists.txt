@@ -28,6 +28,14 @@ target_compile_features(file PRIVATE cxx_std_20)
 add_executable(page_test page.t.cpp)
 target_link_libraries(page_test PRIVATE file Catch2::Catch2WithMain)
 
+add_executable(block_id_test block_id.t.cpp)
+target_link_libraries(block_id_test PRIVATE file Catch2::Catch2WithMain)
+
+add_executable(file_manager_test file_manager.t.cpp)
+target_link_libraries(file_manager_test PRIVATE file Catch2::Catch2WithMain)
+
 # Register test with CTest
 include(CTest)
-add_test(NAME page_test COMMAND file_system_test) 
+add_test(NAME block_id_test COMMAND block_id_test)
+add_test(NAME page_test COMMAND page_test)
+add_test(NAME file_manager_test COMMAND file_manager_test)

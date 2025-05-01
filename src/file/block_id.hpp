@@ -9,11 +9,15 @@ class BlockId {
 public:
     BlockId(std::string_view filename, int blockNumber);
     
+    BlockId(const BlockId& other) = default;
+    BlockId& operator=(const BlockId& other) = default;
+
     std::string fileName() const;
     int number() const;
     
     bool operator==(const BlockId& other) const;
     bool operator!=(const BlockId& other) const;
+    
     
     std::string toString() const;
     

@@ -32,15 +32,6 @@ set_target_properties(jdbc PROPERTIES
     OUTPUT_NAME "jdbc"
 )
 
-# Fetch and configure Catch2
-include(FetchContent)
-FetchContent_Declare(
-    Catch2
-    GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-    GIT_TAG v3.5.2
-)
-FetchContent_MakeAvailable(Catch2)
-
 add_executable(jdbc_properties_test properties.t.cpp)
 target_link_libraries(jdbc_properties_test PRIVATE jdbc Catch2::Catch2WithMain)
 

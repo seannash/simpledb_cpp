@@ -7,7 +7,6 @@
 
 namespace simpledb::jdbc {
 
-
 class ResultSet {
 public:
 

@@ -5,10 +5,12 @@ namespace simpledb::jdbc {
 
 ResultSetMetaData::ResultSetMetaData(int columnCount, 
                                    std::vector<std::string> columnNames,
+                                   std::vector<ColumnType> columnTypes,
                                    std::vector<std::string> columnTypeNames,
                                    std::vector<int> columnDisplaySizes)
     : d_columnCount(columnCount)
     , d_columnNames(std::move(columnNames))
+    , d_columnTypes(std::move(columnTypes))
     , d_columnTypeNames(std::move(columnTypeNames))
     , d_columnDisplaySizes(std::move(columnDisplaySizes))
 {
@@ -33,6 +35,13 @@ std::string ResultSetMetaData::getColumnName(int columnIndex) const {
     return d_columnNames[columnIndex - 1];
 }
 
+ColumnType ResultSetMetaData::getColumnType(int columnIndex) const {
+    if (columnIndex < 1 || columnIndex > d_columnCount) {
+        throw SQLException("Invalid column index: " + std::to_string(columnIndex));
+    }
+    return d_columnTypes[columnIndex - 1];
+}
+
 std::string ResultSetMetaData::getColumnTypeName(int columnIndex) const {
     if (columnIndex < 1 || columnIndex > d_columnCount) {
         throw SQLException("Invalid column index: " + std::to_string(columnIndex));
@@ -40,11 +49,11 @@ std::string ResultSetMetaData::getColumnTypeName(int columnIndex) const {
     return d_columnTypeNames[columnIndex - 1];
 }
 
-std::string ResultSetMetaData::getColumnDisplaySize(int columnIndex) const {
+int ResultSetMetaData::getColumnDisplaySize(int columnIndex) const {
     if (columnIndex < 1 || columnIndex > d_columnCount) {
         throw SQLException("Invalid column index: " + std::to_string(columnIndex));
     }
-    return std::to_string(d_columnDisplaySizes[columnIndex - 1]);
+    return d_columnDisplaySizes[columnIndex - 1];
 }
 
 } // namespace simpledb::jdbc

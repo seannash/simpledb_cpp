@@ -15,7 +15,8 @@ public:
     // Constructor takes column names and types
     InMemoryResultSet();
     InMemoryResultSet(std::vector<std::string> columnNames,
-                     std::vector<std::string> columnTypes,
+                     std::vector<ColumnType> columnTypes,
+                     std::vector<std::string> columnTypesNames,
                      std::vector<int> columnSizes);
 
     // ResultSet interface implementation

@@ -14,10 +14,15 @@ InMemoryResultSet::InMemoryResultSet()
 {}
 
 InMemoryResultSet::InMemoryResultSet(std::vector<std::string> columnNames,
-                                   std::vector<std::string> columnTypes,
+                                   std::vector<ColumnType> columnTypes,
+                                   std::vector<std::string> columnTypesNames,
                                    std::vector<int> columnSizes)
     : d_metadata(std::make_unique<ResultSetMetaData>(
-          columnNames.size(), columnNames, columnTypes, columnSizes)),
+          columnNames.size(),
+          columnNames,
+          columnTypes,
+          columnTypesNames,
+          columnSizes)),
     d_columnIndices(columnNames.size()),
     d_closed(false),
     d_currentRow(0)

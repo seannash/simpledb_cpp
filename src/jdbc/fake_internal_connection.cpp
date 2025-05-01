@@ -48,16 +48,26 @@ std::unique_ptr<ResultSet> FakeInternalConnection::executeQuery(std::string_view
     auto sqlString = to_lower(sql);
     if (sqlString == "select 1") {
         std::vector<std::string> columnNames {"unknown"};
-        std::vector<std::string> columnTypes {"int"};
+        std::vector<ColumnType> columnTypes {ColumnType::INT};
+        std::vector<std::string> columnTypesNames {"int"};
         std::vector<int> columnSizes {10};
-        auto resultSet = std::make_unique<InMemoryResultSet>(columnNames, columnTypes, columnSizes);
+        auto resultSet = std::make_unique<InMemoryResultSet>(
+            columnNames,
+            columnTypes,
+            columnTypesNames,
+            columnSizes);
         resultSet->addRow({std::any(1)});
         return resultSet;
     } else if (sqlString == "select name from cat") {
         std::vector<std::string> columnNames {"name"};
-        std::vector<std::string> columnTypes {"varchar"};
+        std::vector<ColumnType> columnTypes {ColumnType::STRING};
+        std::vector<std::string> columnTypesNames {"varchar"};
         std::vector<int> columnSizes {10};
-        auto resultSet = std::make_unique<InMemoryResultSet>(columnNames, columnTypes, columnSizes);
+        auto resultSet = std::make_unique<InMemoryResultSet>(
+              columnNames,
+              columnTypes,
+              columnTypesNames,
+              columnSizes);
         resultSet->addRow({std::any(std::string("gato"))});
         resultSet->addRow({std::any(std::string("perro"))});
         return resultSet;

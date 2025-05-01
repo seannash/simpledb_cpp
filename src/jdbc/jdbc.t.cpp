@@ -20,6 +20,11 @@ TEST_CASE("MockDriver Strings", "[jdbc]") {
     auto connection = driver.getConnection("jdbc:simpledb:test", props);
     auto statement = connection->createStatement();
     auto resultSet = statement->executeQuery("SELECT name from cat");
+    REQUIRE(resultSet->getMetaData().getColumnCount() == 1);
+    REQUIRE(resultSet->getMetaData().getColumnName(1) == "name");
+    REQUIRE(resultSet->getMetaData().getColumnType(1) == ColumnType::STRING);
+    REQUIRE(resultSet->getMetaData().getColumnTypeName(1) == "varchar");
+    REQUIRE(resultSet->getMetaData().getColumnDisplaySize(1) == 10);
     REQUIRE(resultSet->getString(1) == "gato");
     REQUIRE(resultSet->next());
     REQUIRE(resultSet->getString(1) == "perro");

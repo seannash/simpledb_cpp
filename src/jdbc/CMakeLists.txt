@@ -1,18 +1,18 @@
 # Create JDBC library
 add_library(jdbc
-    jdbc.cpp
-    sql_exception.cpp
-    properties.cpp
-    mock_driver.cpp
-    driver_manager.cpp
     connection.cpp
-    prepared_statement.cpp
-    result_set.cpp
-    statement.cpp
     driver.cpp
+    driver_manager.cpp
     fake_internal_connection.cpp
-    result_set_metadata.cpp
     in_memory_result_set.cpp
+    jdbc.cpp
+    mock_driver.cpp
+    prepared_statement.cpp
+    properties.cpp
+    result_set.cpp
+    result_set_metadata.cpp
+    sql_exception.cpp
+    statement.cpp
 
 )
 

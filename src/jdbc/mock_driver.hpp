@@ -8,7 +8,8 @@ class MockDriver : public Driver {
 public:
     MockDriver();
     ~MockDriver() = default;
-    std::unique_ptr<Connection> connect(std::string_view url, Properties& props) override;
+    std::unique_ptr<Connection> getConnection(std::string_view url, Properties& props) override;
+    bool supports(std::string_view url) override;
 private:
     std::shared_ptr<InternalConnection> d_internalConnection;
 };

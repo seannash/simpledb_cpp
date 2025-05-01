@@ -8,7 +8,7 @@ namespace simpledb::jdbc {
 TEST_CASE("MockDriver Ints", "[jdbc]") {
     MockDriver driver;
     Properties props;
-    auto connection = driver.connect("jdbc:mock:test", props);
+    auto connection = driver.getConnection("jdbc:simpledb:test", props);
     auto statement = connection->createStatement();
     auto resultSet = statement->executeQuery("SELECT 1");
     REQUIRE(resultSet->getInt(1) == 1);
@@ -17,13 +17,25 @@ TEST_CASE("MockDriver Ints", "[jdbc]") {
 TEST_CASE("MockDriver Strings", "[jdbc]") {
     MockDriver driver;
     Properties props;
-    auto connection = driver.connect("jdbc:mock:test", props);
+    auto connection = driver.getConnection("jdbc:simpledb:test", props);
     auto statement = connection->createStatement();
     auto resultSet = statement->executeQuery("SELECT name from cat");
     REQUIRE(resultSet->getString(1) == "gato");
     REQUIRE(resultSet->next());
     REQUIRE(resultSet->getString(1) == "perro");
     REQUIRE(!resultSet->next());
+}
+
+TEST_CASE("DriverManager Ints", "[jdbc]") {
+    auto mockDriver = std::make_unique<MockDriver>();
+    auto driverManager = std::make_unique<DriverManager>();
+    driverManager->registerDriver(std::move(mockDriver));
+    Properties props;
+    REQUIRE(driverManager->supports("jdbc:simpledb:test"));
+    auto connection = driverManager->getConnection("jdbc:simpledb:test", props);
+    auto statement = connection->createStatement();
+    auto resultSet = statement->executeQuery("SELECT 1");
+    REQUIRE(resultSet->getInt(1) == 1);
 }
 
 } // namespace simpledb::jdbc

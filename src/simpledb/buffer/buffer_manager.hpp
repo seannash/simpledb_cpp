@@ -19,6 +19,7 @@ public:
     void flush_all(int txnum);
 
 private:
+    std::mutex d_mutex;
     std::shared_ptr<simpledb::file::FileManager> d_file_manager;
     std::shared_ptr<simpledb::log::LogManager> d_log_manager;
     int d_num_buffers;

@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <thread>
 #include <chrono>
+#include <mutex>
 
 namespace simpledb::buffer {
 
@@ -14,7 +15,8 @@ const int MAX_TIME = 10000;
 BufferManager::BufferManager(std::shared_ptr<simpledb::file::FileManager> file_manager,
                            std::shared_ptr<simpledb::log::LogManager> log_manager,
                            int num_buffers)
-    : d_file_manager(file_manager)
+    : d_mutex()
+    , d_file_manager(file_manager)
     , d_log_manager(log_manager)
     , d_num_buffers(num_buffers)
     , d_buffer_pool()
@@ -30,10 +32,12 @@ BufferManager::~BufferManager() {
 }
 
 int BufferManager::available() {
+    std::lock_guard guard(d_mutex);
     return d_num_available;
 }
 
 void BufferManager::flush_all(int txnum) {
+    std::lock_guard guard(d_mutex);
     for (auto& buffer : d_buffer_pool) {
         if (buffer->modifing_tx() == txnum) {
             buffer->flush();
@@ -42,6 +46,7 @@ void BufferManager::flush_all(int txnum) {
 }
 
 std::shared_ptr<Buffer> BufferManager::pin(const simpledb::file::BlockId& blk) {
+    std::lock_guard guard(d_mutex);
     // TODO add back in retry logic
     auto buffer = try_to_pin(blk);
     if (!buffer) {
@@ -51,10 +56,10 @@ std::shared_ptr<Buffer> BufferManager::pin(const simpledb::file::BlockId& blk) {
 }
 
 void BufferManager::unpin(Buffer& buffer) {
+    std::lock_guard guard(d_mutex);
     buffer.unpin();
     if (!buffer.is_pinned()) {
         d_num_available++;
-        // notify all waiting threads
     }
 }
 

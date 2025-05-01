@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <string_view>
+#include <span>
 
 namespace simpledb::file {
 
@@ -16,7 +17,7 @@ public:
     void setInt(int offset, int value);
 
     std::vector<char> getBytes(int offset) const;
-    void setBytes(int offset, const std::vector<char>& value);
+    void setBytes(int offset, const std::span<char>& value);
 
     std::string getString(int offset) const;
     void setString(int offset, std::string_view value);

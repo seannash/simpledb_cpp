@@ -17,11 +17,13 @@ void Page::setInt(int offset, int value) {
 }   
 
 std::vector<char> Page::getBytes(int offset) const {
-    return std::vector<char>(d_data.begin() + offset, d_data.begin() + offset + 4);
+    int size = *reinterpret_cast<const int*>(d_data.data() + offset);
+    return std::vector<char>(d_data.begin() + offset + sizeof(int), d_data.begin() + offset + sizeof(int) + size);
 }   
 
-void Page::setBytes(int offset, const std::vector<char>& value) {
-    std::copy(value.begin(), value.end(), d_data.begin() + offset);
+void Page::setBytes(int offset, const std::span<char>& value) {
+    *reinterpret_cast<int*>(d_data.data() + offset) = value.size();
+    std::copy(value.begin(), value.end(), d_data.begin() + offset + sizeof(int));
 }   
 
 std::string Page::getString(int offset) const {

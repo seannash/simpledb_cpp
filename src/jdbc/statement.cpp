@@ -15,7 +15,6 @@ int Statement::executeUpdate(std::string_view sql) {
 }
 
 void Statement::close() {
-    throw SQLException("Statement::close not implemented");
 }
 
 } // namespace simpledb::jdbc

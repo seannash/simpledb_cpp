@@ -16,7 +16,6 @@ std::unique_ptr<PreparedStatement> Connection::prepareStatement(std::string_view
 }
 
 void Connection::close() {
-    d_internalConnection->close();
 }
 
 void Connection::setAutoCommit(bool autoCommit) {

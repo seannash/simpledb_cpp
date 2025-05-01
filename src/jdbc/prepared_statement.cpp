@@ -59,7 +59,8 @@ int PreparedStatement::executeUpdate() {
 }
 
 void PreparedStatement::close() {
-    d_internalConnection->close();
+    d_tokens.clear();
+    d_parameters.clear();
 }
 
 std::string PreparedStatement::buildSql() const {

@@ -12,6 +12,10 @@ TEST_CASE("MockDriver Ints", "[jdbc]") {
     auto statement = connection->createStatement();
     auto resultSet = statement->executeQuery("SELECT 1;");
     REQUIRE(resultSet->getInt(1) == 1);
+    resultSet->close();
+    statement->close();
+    connection->close();
+
 }
 
 TEST_CASE("MockDriver Strings", "[jdbc]") {
@@ -29,6 +33,10 @@ TEST_CASE("MockDriver Strings", "[jdbc]") {
     REQUIRE(resultSet->next());
     REQUIRE(resultSet->getString(1) == "perro");
     REQUIRE(!resultSet->next());
+
+    resultSet->close();
+    statement->close();
+    connection->close();
 }
 
 TEST_CASE("DriverManager Ints", "[jdbc]") {
@@ -41,6 +49,9 @@ TEST_CASE("DriverManager Ints", "[jdbc]") {
     auto statement = connection->createStatement();
     auto resultSet = statement->executeQuery("SELECT 1;");
     REQUIRE(resultSet->getInt(1) == 1);
+    resultSet->close();
+    statement->close();
+    connection->close();
 }
 
 TEST_CASE("MockDriver Prepared Ints", "[jdbc]") {
@@ -51,6 +62,9 @@ TEST_CASE("MockDriver Prepared Ints", "[jdbc]") {
     statement->setInt(1, 1);
     auto resultSet = statement->executeQuery();
     REQUIRE(resultSet->getInt(1) == 1);
+    resultSet->close();
+    statement->close();
+    connection->close();
 }
 
 } // namespace simpledb::jdbc

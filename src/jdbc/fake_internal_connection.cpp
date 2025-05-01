@@ -46,7 +46,7 @@ TransactionIsolation FakeInternalConnection::getTransactionIsolation() const {
 
 std::unique_ptr<ResultSet> FakeInternalConnection::executeQuery(std::string_view sql) {
     auto sqlString = to_lower(sql);
-    if (sqlString == "select 1") {
+    if (sqlString == "select 1;") {
         std::vector<std::string> columnNames {"unknown"};
         std::vector<ColumnType> columnTypes {ColumnType::INT};
         std::vector<std::string> columnTypesNames {"int"};
@@ -58,7 +58,7 @@ std::unique_ptr<ResultSet> FakeInternalConnection::executeQuery(std::string_view
             columnSizes);
         resultSet->addRow({std::any(1)});
         return resultSet;
-    } else if (sqlString == "select name from cat") {
+    } else if (sqlString == "select name from cat;") {
         std::vector<std::string> columnNames {"name"};
         std::vector<ColumnType> columnTypes {ColumnType::STRING};
         std::vector<std::string> columnTypesNames {"varchar"};

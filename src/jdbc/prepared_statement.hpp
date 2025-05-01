@@ -2,6 +2,7 @@
 
 #include <string>
 #include <memory>
+#include <vector>
 
 #include "internal_connection.hpp"
 #include "result_set.hpp"
@@ -12,10 +13,6 @@ class PreparedStatement {
 public:
     void setString(int parameterIndex, const std::string& value);
     void setInt(int parameterIndex, int value);
-    void setLong(int parameterIndex, long value);
-    void setDouble(int parameterIndex, double value);
-    void setBoolean(int parameterIndex, bool value);
-    void setNull(int parameterIndex);
 
     void clearParameters();
 
@@ -24,14 +21,16 @@ public:
 
     void close();
 
-    PreparedStatement(std::shared_ptr<InternalConnection> internalConnection, std::string_view sql)
-    : d_internalConnection(internalConnection), d_sql(sql) {}
-
+    PreparedStatement(std::shared_ptr<InternalConnection> internalConnection, std::string_view sql);
     friend class Connection;
 
 private:
     std::shared_ptr<InternalConnection> d_internalConnection;
     std::string d_sql;
+    std::vector<std::string> d_tokens;
+    std::vector<std::string> d_parameters;
+
+    std::string buildSql() const;
 };
 
 } // namespace simpledb::jdbc

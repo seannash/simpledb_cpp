@@ -10,7 +10,7 @@ TEST_CASE("MockDriver Ints", "[jdbc]") {
     Properties props;
     auto connection = driver.getConnection("jdbc:simpledb:test", props);
     auto statement = connection->createStatement();
-    auto resultSet = statement->executeQuery("SELECT 1");
+    auto resultSet = statement->executeQuery("SELECT 1;");
     REQUIRE(resultSet->getInt(1) == 1);
 }
 
@@ -19,7 +19,7 @@ TEST_CASE("MockDriver Strings", "[jdbc]") {
     Properties props;
     auto connection = driver.getConnection("jdbc:simpledb:test", props);
     auto statement = connection->createStatement();
-    auto resultSet = statement->executeQuery("SELECT name from cat");
+    auto resultSet = statement->executeQuery("SELECT name from cat;");
     REQUIRE(resultSet->getMetaData().getColumnCount() == 1);
     REQUIRE(resultSet->getMetaData().getColumnName(1) == "name");
     REQUIRE(resultSet->getMetaData().getColumnType(1) == ColumnType::STRING);
@@ -39,7 +39,17 @@ TEST_CASE("DriverManager Ints", "[jdbc]") {
     REQUIRE(driverManager->supports("jdbc:simpledb:test"));
     auto connection = driverManager->getConnection("jdbc:simpledb:test", props);
     auto statement = connection->createStatement();
-    auto resultSet = statement->executeQuery("SELECT 1");
+    auto resultSet = statement->executeQuery("SELECT 1;");
+    REQUIRE(resultSet->getInt(1) == 1);
+}
+
+TEST_CASE("MockDriver Prepared Ints", "[jdbc]") {
+    MockDriver driver;
+    Properties props;
+    auto connection = driver.getConnection("jdbc:simpledb:test", props);
+    auto statement = connection->prepareStatement("SELECT ?;");
+    statement->setInt(1, 1);
+    auto resultSet = statement->executeQuery();
     REQUIRE(resultSet->getInt(1) == 1);
 }
 

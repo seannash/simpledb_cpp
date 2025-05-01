@@ -14,6 +14,7 @@ class ResultSetMetaData {
     std::vector<int> d_columnDisplaySizes;
 
 public:
+    ResultSetMetaData() = default;
     ResultSetMetaData(int columnCount, std::vector<std::string> columnNames, std::vector<std::string> columnTypeNames, std::vector<int> columnDisplaySizes);
 
     ~ResultSetMetaData() = default;

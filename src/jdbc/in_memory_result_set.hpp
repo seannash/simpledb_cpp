@@ -6,6 +6,7 @@
 #include <string>
 #include <memory>
 #include <unordered_map>
+#include <any>
 
 namespace simpledb::jdbc {
 
@@ -27,12 +28,10 @@ public:
     ResultSetMetaData getMetaData() override;
 
     // Methods to add rows
-    void addRow(const std::vector<std::string>& values);
-    void addRow(const std::vector<int>& values);
-    void addRow(const std::unordered_map<std::string, std::string>& values);
+    void addRow(std::vector<std::any> values);
 
 private:
-    std::vector<std::vector<std::string>> d_rows;
+    std::vector<std::vector<std::any>> d_rows;
     std::size_t d_currentRow = 0;
     bool d_closed = false;
     std::unique_ptr<ResultSetMetaData> d_metadata;

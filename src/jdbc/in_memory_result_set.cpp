@@ -2,10 +2,12 @@
 #include "sql_exception.hpp"
 #include <sstream>
 
+#include <iostream>
+
 namespace simpledb::jdbc {
 
 InMemoryResultSet::InMemoryResultSet()
-    : d_metadata(),
+    : d_metadata(std::make_unique<ResultSetMetaData>()),
     d_columnIndices(0),
     d_closed(false),
     d_currentRow(0)
@@ -28,7 +30,7 @@ InMemoryResultSet::InMemoryResultSet(std::vector<std::string> columnNames,
 
 bool InMemoryResultSet::next() {
     checkClosed();
-    if (d_currentRow < d_rows.size()) {
+    if (d_currentRow < d_rows.size()-1) {
         ++d_currentRow;
         return true;
     }
@@ -38,41 +40,41 @@ bool InMemoryResultSet::next() {
 std::string InMemoryResultSet::getString(const std::string& columnLabel) {
     checkClosed();
     validateColumnLabel(columnLabel);
-    if (d_currentRow == 0 || d_currentRow > d_rows.size()) {
+    if (d_currentRow > d_rows.size()) {
         throw SQLException("No current row");
     }
-    return d_rows[d_currentRow - 1][d_columnIndices[columnLabel]];
+    return std::any_cast<std::string>(d_rows[d_currentRow ][d_columnIndices[columnLabel]]);
 }
 
 std::string InMemoryResultSet::getString(int columnIndex) {
     checkClosed();
     validateColumnIndex(columnIndex);
-    if (d_currentRow == 0 || d_currentRow > d_rows.size()) {
+    if (d_currentRow > d_rows.size()) {
         throw SQLException("No current row");
     }
-    return d_rows[d_currentRow - 1][columnIndex - 1];
+    return std::any_cast<std::string>(d_rows[d_currentRow][columnIndex - 1]);
 }
 
 int InMemoryResultSet::getInt(const std::string& columnLabel) {
     checkClosed();
     validateColumnLabel(columnLabel);
-    if (d_currentRow == 0 || d_currentRow > d_rows.size()) {
+    if (d_currentRow > d_rows.size()) {
         throw SQLException("No current row");
     }
     try {
-        return std::stoi(d_rows[d_currentRow - 1][d_columnIndices[columnLabel]]);
+        return std::any_cast<int>(d_rows[d_currentRow ][d_columnIndices[columnLabel]]);
     } catch (const std::exception& e) {
         throw SQLException("Invalid integer value in column: " + columnLabel);
     }
 }
-
 int InMemoryResultSet::getInt(int columnIndex) {
     checkClosed();
     validateColumnIndex(columnIndex);
-    if (d_currentRow == 0 || d_currentRow > d_rows.size()) {
+    if (d_currentRow > d_rows.size()) {
         throw SQLException("No current row");
     }
-    return std::stoi(d_rows[d_currentRow - 1][columnIndex - 1]);
+    auto v = d_rows[d_currentRow][columnIndex - 1];
+    return std::any_cast<int>(d_rows[d_currentRow][columnIndex - 1]);
 }
 
 void InMemoryResultSet::close() {
@@ -86,38 +88,13 @@ ResultSetMetaData InMemoryResultSet::getMetaData() {
     return *d_metadata;
 }
 
-void InMemoryResultSet::addRow(const std::vector<std::string>& values) {
-    checkClosed();
+void InMemoryResultSet::addRow(std::vector<std::any> values) {
     if (values.size() != d_columnIndices.size()) {
         throw SQLException("Row size does not match column count");
     }
     d_rows.push_back(values);
 }
 
-void InMemoryResultSet::addRow(const std::vector<int>& values) {
-    checkClosed();
-    if (values.size() != d_columnIndices.size()) {
-        throw SQLException("Row size does not match column count");
-    }
-    std::vector<std::string> stringValues;
-    stringValues.reserve(values.size());
-    for (int value : values) {
-        stringValues.push_back(std::to_string(value));
-    }
-    d_rows.push_back(stringValues);
-}
-
-void InMemoryResultSet::addRow(const std::unordered_map<std::string, std::string>& values) {
-    checkClosed();
-    std::vector<std::string> row(d_columnIndices.size());
-    for (const auto& [column, value] : values) {
-        if (d_columnIndices.find(column) == d_columnIndices.end()) {
-            throw SQLException("Unknown column: " + column);
-        }
-        row[d_columnIndices[column]] = value;
-    }
-    d_rows.push_back(row);
-}
 
 void InMemoryResultSet::validateColumnLabel(const std::string& columnLabel) const {
     if (d_columnIndices.find(columnLabel) == d_columnIndices.end()) {

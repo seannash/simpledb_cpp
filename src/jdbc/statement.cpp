@@ -7,11 +7,11 @@ Statement::Statement(std::shared_ptr<InternalConnection> internalConnection)
 : d_internalConnection(internalConnection) {}
 
 std::unique_ptr<ResultSet> Statement::executeQuery(std::string_view sql) {
-    throw SQLException("Statement::executeQuery not implemented");
+    return d_internalConnection->executeQuery(sql);
 }
 
 int Statement::executeUpdate(std::string_view sql) {
-    throw SQLException("Statement::executeUpdate not implemented");
+    return d_internalConnection->executeUpdate(sql);
 }
 
 void Statement::close() {

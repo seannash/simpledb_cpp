@@ -44,6 +44,15 @@ std::string InMemoryResultSet::getString(const std::string& columnLabel) {
     return d_rows[d_currentRow - 1][d_columnIndices[columnLabel]];
 }
 
+std::string InMemoryResultSet::getString(int columnIndex) {
+    checkClosed();
+    validateColumnIndex(columnIndex);
+    if (d_currentRow == 0 || d_currentRow > d_rows.size()) {
+        throw SQLException("No current row");
+    }
+    return d_rows[d_currentRow - 1][columnIndex - 1];
+}
+
 int InMemoryResultSet::getInt(const std::string& columnLabel) {
     checkClosed();
     validateColumnLabel(columnLabel);
@@ -55,6 +64,15 @@ int InMemoryResultSet::getInt(const std::string& columnLabel) {
     } catch (const std::exception& e) {
         throw SQLException("Invalid integer value in column: " + columnLabel);
     }
+}
+
+int InMemoryResultSet::getInt(int columnIndex) {
+    checkClosed();
+    validateColumnIndex(columnIndex);
+    if (d_currentRow == 0 || d_currentRow > d_rows.size()) {
+        throw SQLException("No current row");
+    }
+    return std::stoi(d_rows[d_currentRow - 1][columnIndex - 1]);
 }
 
 void InMemoryResultSet::close() {
@@ -104,6 +122,12 @@ void InMemoryResultSet::addRow(const std::unordered_map<std::string, std::string
 void InMemoryResultSet::validateColumnLabel(const std::string& columnLabel) const {
     if (d_columnIndices.find(columnLabel) == d_columnIndices.end()) {
         throw SQLException("Unknown column: " + columnLabel);
+    }
+}
+
+void InMemoryResultSet::validateColumnIndex(int columnIndex) const {
+    if (columnIndex < 1 || columnIndex > d_metadata->getColumnCount()) {
+        throw SQLException("Invalid column index: " + std::to_string(columnIndex));
     }
 }
 

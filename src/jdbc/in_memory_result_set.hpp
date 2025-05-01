@@ -20,7 +20,9 @@ public:
     // ResultSet interface implementation
     bool next() override;
     std::string getString(const std::string& columnLabel) override;
+    std::string getString(int columnIndex) override;
     int getInt(const std::string& columnLabel) override;
+    int getInt(int columnIndex) override;
     void close() override;
     ResultSetMetaData getMetaData() override;
 
@@ -37,6 +39,7 @@ private:
     std::unordered_map<std::string, std::size_t> d_columnIndices;
 
     void validateColumnLabel(const std::string& columnLabel) const;
+    void validateColumnIndex(int columnIndex) const;
     void checkClosed() const;
 };
 

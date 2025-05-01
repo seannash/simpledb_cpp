@@ -13,7 +13,7 @@ class Connection {
     std::shared_ptr<InternalConnection> d_internalConnection;
 
 public:
-    Connection() = default;
+    Connection(std::shared_ptr<InternalConnection> internalConnection);
     virtual ~Connection() = default;
 
     // Statement creation

@@ -3,6 +3,10 @@
 
 namespace simpledb::jdbc {
 
+Connection::Connection(std::shared_ptr<InternalConnection> internalConnection)
+    : d_internalConnection(internalConnection)
+{}
+
 std::unique_ptr<Statement> Connection::createStatement() {
     return std::make_unique<Statement>(d_internalConnection);
 }

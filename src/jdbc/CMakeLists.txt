@@ -41,10 +41,14 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(Catch2)
 
-# Create test executable
 add_executable(jdbc_properties_test properties.t.cpp)
 target_link_libraries(jdbc_properties_test PRIVATE jdbc Catch2::Catch2WithMain)
+
+add_executable(jdbc_test jdbc.t.cpp)
+target_link_libraries(jdbc_test PRIVATE jdbc Catch2::Catch2WithMain)
+
 
 # Register test with CTest
 include(CTest)
 add_test(NAME jdbc_properties_test COMMAND jdbc_properties_test)
+add_test(NAME jdbc_test COMMAND jdbc_test)

@@ -15,7 +15,6 @@ TEST_CASE("MockDriver Ints", "[jdbc]") {
     resultSet->close();
     statement->close();
     connection->close();
-
 }
 
 TEST_CASE("MockDriver Strings", "[jdbc]") {

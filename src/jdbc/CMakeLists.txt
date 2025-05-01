@@ -47,8 +47,12 @@ target_link_libraries(jdbc_properties_test PRIVATE jdbc Catch2::Catch2WithMain)
 add_executable(jdbc_test jdbc.t.cpp)
 target_link_libraries(jdbc_test PRIVATE jdbc Catch2::Catch2WithMain)
 
+add_executable(jdbc_fake_data_source_test fake_data_source.t.cpp fake_data_source.cpp)
+target_link_libraries(jdbc_fake_data_source_test PRIVATE jdbc Catch2::Catch2WithMain)
+
 
 # Register test with CTest
 include(CTest)
 add_test(NAME jdbc_properties_test COMMAND jdbc_properties_test)
 add_test(NAME jdbc_test COMMAND jdbc_test)
+add_test(NAME jdbc_fake_data_source_test COMMAND jdbc_fake_data_source_test)

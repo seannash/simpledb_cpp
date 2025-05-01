@@ -6,6 +6,14 @@ add_library(jdbc
     mock_driver.cpp
     driver_manager.cpp
     connection.cpp
+    prepared_statement.cpp
+    result_set.cpp
+    statement.cpp
+    driver.cpp
+    fake_internal_connection.cpp
+    result_set_metadata.cpp
+    in_memory_result_set.cpp
+
 )
 
 # Set include directories

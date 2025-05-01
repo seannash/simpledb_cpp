@@ -4,6 +4,7 @@
 #include <string_view>
 #include <map>
 #include <memory>
+#include <mutex>
 #include <fstream>
 
 #include "block_id.hpp"
@@ -28,6 +29,7 @@ public:
 
 
 private:
+    std::mutex d_mutex;
     std::string d_dirname;
     int d_blockSize;
     bool d_isNew;

@@ -5,7 +5,7 @@
 namespace simpledb::file {
 
 FileManager::FileManager(std::string_view dirname, int blockSize)
-: d_dirname(dirname), d_blockSize(blockSize), d_isNew(false) {
+: d_mutex(), d_dirname(dirname), d_blockSize(blockSize), d_isNew(false) {
     if (!std::filesystem::exists(d_dirname)) {
         std::filesystem::create_directories(d_dirname);
         d_isNew = true;
@@ -29,18 +29,21 @@ FileManager::~FileManager() {
 }
 
 void FileManager::read(const BlockId& blockId, Page* page) {
+    std::lock_guard guard(d_mutex);
     auto file = getFile(blockId.fileName());
     file->seekg(blockId.number() * d_blockSize);
     file->read(page->contents()->data(), d_blockSize);
 }
 
 void FileManager::write(const BlockId& blockId, Page* page) {
+    std::lock_guard guard(d_mutex);
     auto file = getFile(blockId.fileName());
     file->seekp(blockId.number() * d_blockSize);
     file->write(page->contents()->data(), d_blockSize);
 }
 
 BlockId FileManager::append(std::string filename) {
+    std::lock_guard guard(d_mutex);
     int new_block_number = length(filename);
     BlockId blkId{filename, new_block_number};
     std::vector<char> buffer(d_blockSize, 0);

@@ -34,4 +34,8 @@ std::shared_ptr<simpledb::tx::Transaction> SimpleDB::new_tx() {
     return std::make_shared<simpledb::tx::Transaction>(d_file_manager, d_log_manager, d_buffer_manager);
 }
 
+std::shared_ptr<simpledb::metadata::MetadataManager> SimpleDB::metadata_manager() {
+    return d_metadata_manager;
+}
+
 } // namespace simpledb::server

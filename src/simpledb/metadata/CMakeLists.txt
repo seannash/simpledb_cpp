@@ -44,3 +44,15 @@ target_link_libraries(catalog_test
     PRIVATE
         server
 )
+
+add_executable(metadata_manager_test
+    metadata_manager_test.cpp
+)
+target_include_directories(metadata_manager_test
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
+target_link_libraries(metadata_manager_test
+    PRIVATE
+        server
+)

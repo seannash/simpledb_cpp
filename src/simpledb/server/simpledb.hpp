@@ -4,7 +4,7 @@
 #include "simpledb/buffer/buffer_manager.hpp"
 #include "simpledb/log/log_manager.hpp"
 #include "simpledb/file/file_manager.hpp"
-
+#include "simpledb/metadata/metadata_manager.hpp"
 namespace simpledb::server {
 
 class SimpleDB {
@@ -18,6 +18,7 @@ public:
     std::shared_ptr<simpledb::file::FileManager> file_manager();
     std::shared_ptr<simpledb::log::LogManager> log_manager();
     std::shared_ptr<simpledb::buffer::BufferManager> buffer_manager();
+    std::shared_ptr<simpledb::metadata::MetadataManager> metadata_manager();
 
 private:
     std::string d_db_directory;
@@ -26,7 +27,7 @@ private:
     std::shared_ptr<simpledb::file::FileManager> d_file_manager;
     std::shared_ptr<simpledb::log::LogManager> d_log_manager;
     std::shared_ptr<simpledb::buffer::BufferManager> d_buffer_manager;
-    
+    std::shared_ptr<simpledb::metadata::MetadataManager> d_metadata_manager;
 };
 
 } // namespace simpledb::server

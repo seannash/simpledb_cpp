@@ -11,6 +11,7 @@ SimpleDB::SimpleDB(std::string_view db_directory, int block_size, int buffer_siz
     d_file_manager = std::make_shared<simpledb::file::FileManager>(db_directory, block_size);
     d_log_manager = std::make_shared<simpledb::log::LogManager>(d_file_manager, "logfile");
     d_buffer_manager = std::make_shared<simpledb::buffer::BufferManager>(d_file_manager, d_log_manager, buffer_size);
+    d_metadata_manager = std::make_shared<simpledb::metadata::MetadataManager>(true, new_tx());
 }
 
 SimpleDB::SimpleDB(std::string_view db_directory)

@@ -5,9 +5,9 @@ namespace simpledb::metadata {
 
 MetadataManager::MetadataManager(bool is_new, std::shared_ptr<simpledb::tx::Transaction> tx) {
     d_table_manager = std::make_shared<TableManager>(is_new, tx);
-    d_view_manager = std::make_shared<ViewManager>(is_new, tx);
-    d_stat_manager = std::make_shared<StatManager>(is_new, tx);
-    d_index_manager = std::make_shared<IndexManager>(is_new, tx);
+    d_view_manager = std::make_shared<ViewManager>(is_new, d_table_manager, tx);
+    d_stat_manager = std::make_shared<StatManager>(d_table_manager, tx);
+    d_index_manager = std::make_shared<IndexManager>(is_new, d_table_manager, d_stat_manager, tx);
 }
 
 void MetadataManager::create_table(
@@ -54,7 +54,7 @@ StatInfo MetadataManager::get_stat_info(
         std::string_view table_name,
         std::shared_ptr<simpledb::record::Layout> layout,
         std::shared_ptr<simpledb::tx::Transaction> tx) {
-    return d_stat_manager->get_stat_info(table_name, layout, tx);
+    return d_stat_manager->get_stat_info(std::string(table_name), layout, tx);
 }
 
 } // namespace simpledb::metadata

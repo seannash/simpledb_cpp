@@ -5,6 +5,7 @@ add_library(metadata
     stat_info.cpp
     index_info.cpp
     index_manager.cpp
+    metadata_manager.cpp
 )
 
 target_include_directories(metadata

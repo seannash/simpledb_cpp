@@ -7,10 +7,11 @@
 #include "simpledb/record/layout.hpp"
 #include "simpledb/record/rid.hpp"
 #include "simpledb/record/record_page.hpp"
+#include "simpledb/query/update_scan.hpp"
 
 namespace simpledb::record {
 
-class TableScan {
+class TableScan : public simpledb::query::UpdateScan {
 public:
     TableScan(std::shared_ptr<simpledb::tx::Transaction> tx,
               std::string_view table_name,
@@ -19,18 +20,20 @@ public:
     void close();
     bool has_field(std::string_view field);
     
-    void before_first();
-    bool next();
-    void move_to_rid(RID rid);
-    void insert();
+    void before_first() override;
+    bool next() override;
+    void move_to_rid(RID rid) override;
+    void insert() override;
 
-    int get_int(std::string_view field);
-    std::string get_string(std::string_view field);
-    std::any get_val(std::string_view field);
-    void set_int(std::string_view field, int value);
-    void set_string(std::string_view field, std::string_view value);
-    RID current_rid();
-    void delete_record();
+    int get_int(std::string_view field) override;
+    std::string get_string(std::string_view field) override;
+    std::any get_val(std::string_view field) override;
+    void set_int(std::string_view field, int value) override;
+    void set_string(std::string_view field, std::string_view value) override;
+    void set_val(std::string_view field, const std::any& value) override;
+    RID current_rid() override;
+    
+    void delete_record() override;
 
 private:
     std::shared_ptr<simpledb::tx::Transaction> d_tx;
@@ -42,7 +45,7 @@ private:
     void move_to_new_block();
     void move_to_block(int block_number);
     bool at_last_block();
-    void set_val(std::string_view field, const std::any& value);
+    
 };
 
 

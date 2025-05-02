@@ -5,6 +5,7 @@ add_subdirectory(buffer)
 add_subdirectory(tx) 
 add_subdirectory(record)
 add_subdirectory(metadata)
+add_subdirectory(query)
 add_subdirectory(server)
 
 

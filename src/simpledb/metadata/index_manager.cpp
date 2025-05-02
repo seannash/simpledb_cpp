@@ -32,7 +32,6 @@ void IndexManager::create_index(std::string_view iname,
 }
 
 std::map<std::string, IndexInfo> IndexManager::get_index_info(std::string_view tname,
-                                     std::string_view fname,
                                      std::shared_ptr<simpledb::tx::Transaction> tx) {
     std::map<std::string, IndexInfo> result;
     simpledb::record::TableScan ts(tx, "idxcat", d_layout);

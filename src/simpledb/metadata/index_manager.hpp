@@ -24,7 +24,7 @@ public:
                       std::string_view fname,
                       std::shared_ptr<simpledb::tx::Transaction> tx);
 
-    std::map<std::string, IndexInfo> get_index_info(std::string_view tname, std::string_view fname, std::shared_ptr<simpledb::tx::Transaction> tx);
+    std::map<std::string, IndexInfo> get_index_info(std::string_view tname, std::shared_ptr<simpledb::tx::Transaction> tx);
 
 private:
     std::shared_ptr<simpledb::metadata::TableManager> d_table_manager;

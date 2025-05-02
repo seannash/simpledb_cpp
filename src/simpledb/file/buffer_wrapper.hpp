@@ -1,20 +1,16 @@
 #pragma once
 
-#include <vector>
+#include <span>
 #include <string>
 #include <string_view>
-#include <span>
-
-#include "buffer_wrapper.hpp"
+#include <vector>
 
 namespace simpledb::file {
 
-class Page {
+class BufferWrapper {
 public:
-    Page(int pageSize);
-    Page(std::vector<char> data);
-    virtual ~Page() = default;
-  
+    BufferWrapper(std::span<char> data);
+
     int getInt(int offset) const;
     void setInt(int offset, int value);
 
@@ -24,13 +20,10 @@ public:
     std::string getString(int offset) const;
     void setString(int offset, std::string_view value);
 
-    std::vector<char>* contents();    
+    std::vector<char>* contents();
 
 private:
-    // TODO: Change to non-paged memory
-    std::vector<char> d_data;
-    BufferWrapper d_buffer_wrapper;
-
+    std::span<char> d_data;
 };
 
 } // namespace simpledb::file

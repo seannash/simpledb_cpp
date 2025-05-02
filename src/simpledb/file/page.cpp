@@ -3,37 +3,31 @@
 namespace simpledb::file {
 
 Page::Page(int pageSize)
-: d_data(pageSize) {}
-
-Page::Page(std::vector<char> data)
-: d_data(data) {}
+: d_data(pageSize), d_buffer_wrapper(d_data) {}
 
 int Page::getInt(int offset) const {
     return *reinterpret_cast<const int*>(d_data.data() + offset);
 }
 
 void Page::setInt(int offset, int value) {
-    *reinterpret_cast<int*>(d_data.data() + offset) = value;
+    d_buffer_wrapper.setInt(offset, value);
 }   
 
 std::vector<char> Page::getBytes(int offset) const {
-    int size = *reinterpret_cast<const int*>(d_data.data() + offset);
-    return std::vector<char>(d_data.begin() + offset + sizeof(int), d_data.begin() + offset + sizeof(int) + size);
+    return d_buffer_wrapper.getBytes(offset);
 }   
 
-void Page::setBytes(int offset, const std::span<char>& value) {
-    *reinterpret_cast<int*>(d_data.data() + offset) = value.size();
-    std::copy(value.begin(), value.end(), d_data.begin() + offset + sizeof(int));
+void Page::setBytes(int offset, std::span<char> value) {
+
+    d_buffer_wrapper.setBytes(offset, value);
 }   
 
 std::string Page::getString(int offset) const {
-    auto length = getInt(offset);
-    return std::string(d_data.begin() + offset + 4, d_data.begin() + offset + 4 + length);
+    return d_buffer_wrapper.getString(offset);
 }   
 
 void Page::setString(int offset, std::string_view value) {
-    setInt(offset, value.length());
-    std::copy(value.begin(), value.end(), d_data.begin() + offset + 4);
+    d_buffer_wrapper.setString(offset, value);
 }      
 
 std::vector<char>* Page::contents() {

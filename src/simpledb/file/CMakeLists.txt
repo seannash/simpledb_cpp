@@ -1,8 +1,10 @@
 # Create file system library
 add_library(file
     page.cpp
+    buffer_wrapper.cpp
     file_manager.cpp  
     block_id.cpp
+    buffer_wrapper.cpp
 )
 
 # Set include directories

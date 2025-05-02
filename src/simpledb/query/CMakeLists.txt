@@ -4,6 +4,7 @@ add_library(query STATIC
     update_scan.cpp
     select_scan.cpp
     project_scan.cpp
+    product_scan.cpp
 )
 
 target_include_directories(query

@@ -6,11 +6,17 @@
 
 #include <memory>
 #include <string>
+
+// TODO: Refactor to not need this
+namespace simpledb::tx {
+class Transaction;
+}
+
 namespace simpledb::tx::recovery {
 
 class RecoveryManager {
 public:
-    RecoveryManager(std::shared_ptr<simpledb::tx::Transaction> tx, int txnum,  std::shared_ptr<simpledb::log::LogManager> lm, std::shared_ptr<simpledb::buffer::BufferManager> bm);
+    RecoveryManager(simpledb::tx::Transaction* tx, int txnum,  std::shared_ptr<simpledb::log::LogManager> lm, std::shared_ptr<simpledb::buffer::BufferManager> bm);
 
     void commit();
     void rollback();
@@ -20,7 +26,7 @@ public:
     int set_string(simpledb::buffer::Buffer &buf, int offset, const std::string &val);
 
 private:
-    std::shared_ptr<simpledb::tx::Transaction> d_tx;
+    simpledb::tx::Transaction* d_tx;
     int d_txnum;
     std::shared_ptr<simpledb::log::LogManager> d_lm;
     std::shared_ptr<simpledb::buffer::BufferManager> d_bm;

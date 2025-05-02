@@ -3,12 +3,22 @@
 #include "simpledb/log/log_manager.hpp"
 #include "simpledb/buffer/buffer_manager.hpp"
 #include "simpledb/file/file_manager.hpp"
+#include "simpledb/tx/concurrency/concurrency_manager.hpp"
+#include "simpledb/tx/recovery/recovery_manager.hpp"
+#include "simpledb/tx/bufferlist.hpp"
+#include <mutex>
+#include <memory>
+#include <string>
+
+namespace recovery {
+class RecoveryManager;
+}
 
 namespace simpledb::tx {
 
 class Transaction {
 public:
-    Transaction(std::shared_ptr<simpledb::file::FileManager> file_manager, std::shared_ptr<simpledb::log::LogManager> log_manager, std::shared_ptr<simpledb::buffer::BufferManager> buffer_manager, int txnum);
+    Transaction(std::shared_ptr<simpledb::file::FileManager> file_manager, std::shared_ptr<simpledb::log::LogManager> log_manager, std::shared_ptr<simpledb::buffer::BufferManager> buffer_manager);
     ~Transaction();
 
     void commit();
@@ -33,6 +43,10 @@ private:
     std::shared_ptr<simpledb::log::LogManager> d_log_manager;
     std::shared_ptr<simpledb::buffer::BufferManager> d_buffer_manager;
     int d_txnum;
+
+    std::shared_ptr<simpledb::tx::concurrency::ConcurrencyManager> d_concurrency_manager;
+    std::shared_ptr<recovery::RecoveryManager> d_recovery_manager;
+    static int next_txnum();
 };
 
 } // namespace simpledb::tx

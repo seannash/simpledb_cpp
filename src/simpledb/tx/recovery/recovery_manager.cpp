@@ -13,7 +13,7 @@
 namespace simpledb::tx::recovery {
 
 RecoveryManager::RecoveryManager(
-    std::shared_ptr<simpledb::tx::Transaction> tx,
+    Transaction* tx,
     int txnum,
     std::shared_ptr<simpledb::log::LogManager> lm,
     std::shared_ptr<simpledb::buffer::BufferManager> bm)

@@ -1,5 +1,6 @@
 add_library(tx
     transaction.cpp
+    bufferlist.cpp
     recovery/recovery_manager.cpp
     recovery/log_record.cpp
     recovery/start_log_record.cpp
@@ -9,6 +10,8 @@ add_library(tx
     recovery/set_int_log_record.cpp
     recovery/set_string_log_record.cpp
     recovery/log_record_builder.cpp
+    concurrency/lock_table.cpp
+    concurrency/concurrency_manager.cpp
 )
 
 target_include_directories(tx

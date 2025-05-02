@@ -9,7 +9,7 @@ int main() {
     auto log_manager = simpledb.log_manager();
     auto buffer_manager = simpledb.buffer_manager();
     
-    auto tx1 = std::make_shared<simpledb::tx::Transaction>(file_manager, log_manager, buffer_manager, 1);
+    auto tx1 = std::make_shared<simpledb::tx::Transaction>(file_manager, log_manager, buffer_manager);
     simpledb::file::BlockId blk = simpledb::file::BlockId("testfile", 1);
     tx1->pin(blk);
     // Don't log initial values
@@ -17,7 +17,7 @@ int main() {
     tx1->set_string(blk, 40, "one", false);
     tx1->commit();
 
-    auto tx2 = std::make_shared<simpledb::tx::Transaction>(file_manager, log_manager, buffer_manager, 2);
+    auto tx2 = std::make_shared<simpledb::tx::Transaction>(file_manager, log_manager, buffer_manager);
     tx2->pin(blk);
     int ival = tx2->get_int(blk, 80);
     std::string sval = tx2->get_string(blk, 40);
@@ -28,7 +28,7 @@ int main() {
     tx2->set_string(blk, 40, newsval, true);
     tx2->commit();
 
-    auto tx3 = std::make_shared<simpledb::tx::Transaction>(file_manager, log_manager, buffer_manager, 3);
+    auto tx3 = std::make_shared<simpledb::tx::Transaction>(file_manager, log_manager, buffer_manager);
     tx3->pin(blk);
     ival = tx3->get_int(blk, 80);
     sval = tx3->get_string(blk, 40);
@@ -37,7 +37,7 @@ int main() {
     std::cout << "pre-rollback ival: " << ival << std::endl;
     tx3->rollback();
 
-    auto tx4 = std::make_shared<simpledb::tx::Transaction>(file_manager, log_manager, buffer_manager, 4);
+    auto tx4 = std::make_shared<simpledb::tx::Transaction>(file_manager, log_manager, buffer_manager);
     tx4->pin(blk);
     ival = tx4->get_int(blk, 80);
     sval = tx4->get_string(blk, 40);

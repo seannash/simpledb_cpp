@@ -7,6 +7,7 @@
 #include <sstream>
 #include <vector>
 #include <span>
+#include <cstring>
 
 namespace simpledb::tx::recovery {
 
@@ -21,7 +22,8 @@ CommitLogRecord::CommitLogRecord(std::span<char> bytes)
     if (bytes.size() < sizeof(int) * 2) {
         throw std::runtime_error("Commit log record is too short");
     }
-    d_txnum = *reinterpret_cast<const int*>(bytes.data() + POS_TXNUM);
+    //d_txnum = *reinterpret_cast<const int*>(bytes.data() + POS_TXNUM);
+    std::memcpy(&d_txnum, bytes.data() + POS_TXNUM, sizeof(int));
 }
 
 int CommitLogRecord::op() const {
@@ -44,7 +46,9 @@ std::string CommitLogRecord::to_string() const {
 int CommitLogRecord::write_to_log(std::shared_ptr<simpledb::log::LogManager> lm, int txnum) {
     std::vector<char> buf(sizeof(int)*2, 0);
     *reinterpret_cast<int*>(buf.data()) = COMMIT;
-    *reinterpret_cast<int*>(buf.data() + sizeof(int)) = txnum;
+    std::memcpy(buf.data() + sizeof(int), &txnum, sizeof(int));
+    //*reinterpret_cast<int*>(buf.data() + sizeof(int)) = txnum;
+    std::cout << "<COMMIT " << txnum << ">" << std::endl;
     return lm->append(buf);
 }
 

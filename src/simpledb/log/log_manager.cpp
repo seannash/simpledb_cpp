@@ -21,6 +21,7 @@ LogManager::LogManager(std::shared_ptr<file::FileManager> fileManager, const std
 }
 
 int LogManager::append(std::span<char> log_record) {
+    std::cout << "Appending log record: " << log_record.size() << std::endl;
     int boundary = d_log_page.getInt(0);
     int record_size = log_record.size();
     int bytes_needed = record_size + sizeof(int);

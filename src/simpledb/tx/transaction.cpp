@@ -1,5 +1,5 @@
 #include "simpledb/tx/transaction.hpp"
-
+#include <sstream>
 namespace simpledb::tx {
 
 Transaction::Transaction(std::shared_ptr<simpledb::file::FileManager> file_manager,
@@ -13,7 +13,7 @@ Transaction::Transaction(std::shared_ptr<simpledb::file::FileManager> file_manag
     d_txnum = next_txnum();
     d_concurrency_manager = std::make_shared<concurrency::ConcurrencyManager>();
     d_recovery_manager = std::make_shared<recovery::RecoveryManager>(this, d_txnum, d_log_manager, d_buffer_manager);
-    //d_my_buffer = d_buffer_manager->new_buffer();
+    d_my_buffers = std::make_shared<BufferList>(d_buffer_manager);
 }
 
 Transaction::~Transaction() {
@@ -21,61 +21,82 @@ Transaction::~Transaction() {
 }
 
 void Transaction::commit() {
-    // TODO: Implement commit
+    d_recovery_manager->commit();
+    d_concurrency_manager->release();
+    d_my_buffers->unpinAll();
+    std::cout << "Transaction " << d_txnum << " committed" << std::endl;
 }
 
 void Transaction::rollback() {
-    // TODO: Implement rollback
+    d_recovery_manager->rollback();
+    d_concurrency_manager->release();
+    d_my_buffers->unpinAll();
+    std::cout << "Transaction " << d_txnum << " rolled back" << std::endl;
 }
 
 void Transaction::recover() {
-    // TODO: Implement recovery
+    d_buffer_manager->flush_all(d_txnum);
+    d_recovery_manager->recover();
 }
 
 void Transaction::pin(const simpledb::file::BlockId& blk) {
-    // TODO: Implement pin
+    d_my_buffers->pin(blk);
 }
 
 void Transaction::unpin(const simpledb::file::BlockId& blk) {
-    // TODO: Implement unpin
+    d_my_buffers->unpin(blk);
 }
 
 int Transaction::get_int(const simpledb::file::BlockId& blk, int offset) {
-    // TODO: Implement get_int
-    return 0;
+    d_concurrency_manager->s_lock(blk);
+    auto buffer = d_my_buffers->getBuffer(blk);
+    return buffer->contents().getInt(offset);
 }
 
 std::string Transaction::get_string(const simpledb::file::BlockId& blk, int offset) {
-    // TODO: Implement get_string
-    return "";
+    d_concurrency_manager->s_lock(blk);
+    auto buffer = d_my_buffers->getBuffer(blk);
+    return buffer->contents().getString(offset);
 }
 
 void Transaction::set_int(const simpledb::file::BlockId& blk, int offset, int val, bool ok_to_log) {
-    // TODO: Implement set_int
+    d_concurrency_manager->x_lock(blk);
+    auto buffer = d_my_buffers->getBuffer(blk);
+    int lsn = -1;
+    if (ok_to_log) {
+        lsn = d_recovery_manager->set_int(*buffer, offset, val);
+    }
+    auto& page = buffer->contents();
+    page.setInt(offset, val);
+    buffer->set_modified(true, lsn);
 }
 
 void Transaction::set_string(const simpledb::file::BlockId& blk, int offset, const std::string& val, bool ok_to_log) {
-    // TODO: Implement set_string
+    d_concurrency_manager->x_lock(blk);
+    auto buffer = d_my_buffers->getBuffer(blk);
+    int lsn = -1;
+    if (ok_to_log) {
+        lsn = d_recovery_manager->set_string(*buffer, offset, val);
+    }
+    auto& page = buffer->contents();
+    page.setString(offset, val);
+    buffer->set_modified(true, lsn);
 }
 
 int Transaction::available_buffers() {
-    // TODO: Implement available_buffers
-    return 0;
+    return d_buffer_manager->available();
 }
 
 int Transaction::size(const std::string& filename) {
-    // TODO: Implement size
-    return 0;
+    return d_file_manager->length(filename);
 }
 
 simpledb::file::BlockId Transaction::append(const std::string& filename) {
-    // TODO: Implement append
-    return simpledb::file::BlockId(filename, 0);
+    return d_file_manager->append(filename);
 }
 
 int Transaction::block_size() {
-    // TODO: Implement block_size
-    return 0;
+    return d_file_manager->blockSize();
 }
 
 int Transaction::next_txnum() {

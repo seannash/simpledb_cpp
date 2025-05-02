@@ -37,3 +37,16 @@ target_link_libraries(tx_test
     PRIVATE
         server
 )
+
+
+add_executable(tx_test_small
+    tx_test_small.cpp
+)
+target_include_directories(tx_test_small
+    PUBLIC
+        ${CMAKE_SOURCE_DIR}/src
+)
+target_link_libraries(tx_test_small
+    PRIVATE
+        server
+)

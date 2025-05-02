@@ -21,6 +21,7 @@ int CheckpointLogRecord::write_to_log(std::shared_ptr<simpledb::log::LogManager>
     std::vector<char> data(sizeof(int), 0); 
     *reinterpret_cast<int*>(data.data()) = CHECKPOINT;
     *reinterpret_cast<int*>(data.data() + sizeof(int)) = txnum;
+    std::cout << "<CHECKPOINT " << txnum << ">" << std::endl;
     return lm->append(data);
 }
 

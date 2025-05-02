@@ -13,10 +13,10 @@ LockTable::LockTable() {}
 
 void LockTable::s_lock(simpledb::file::BlockId blk) {
     std::unique_lock<std::mutex> lock(d_mutex);
-    lock.lock();
+    //lock.lock();
     try {
         auto start_time = std::chrono::steady_clock::now();
-        while (has_x_lock(blk) || !waiting_too_long(start_time)) {
+        while (has_x_lock(blk) && !waiting_too_long(start_time)) {
             lock.unlock();
             std::this_thread::sleep_for(std::chrono::milliseconds(1));
             lock.lock();
@@ -33,7 +33,7 @@ void LockTable::x_lock(simpledb::file::BlockId blk) {
     std::unique_lock<std::mutex> lock(d_mutex);
     try {
         auto start_time = std::chrono::steady_clock::now();
-        while (has_other_s_lock(blk) || !waiting_too_long(start_time)) {
+        while (has_other_s_lock(blk) && !waiting_too_long(start_time)) {
             lock.unlock();
             std::this_thread::sleep_for(std::chrono::milliseconds(1));
             lock.lock();

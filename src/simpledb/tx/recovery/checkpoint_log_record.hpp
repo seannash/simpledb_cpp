@@ -4,7 +4,7 @@
 #include "simpledb/file/block_id.hpp"
 #include "simpledb/tx/recovery/log_record.hpp"
 #include <span>
-
+#include <iostream>
 namespace simpledb::tx::recovery {
 
 class   CheckpointLogRecord : public LogRecord {

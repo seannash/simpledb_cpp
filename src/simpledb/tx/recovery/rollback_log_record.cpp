@@ -1,7 +1,7 @@
 #include "simpledb/tx/recovery/rollback_log_record.hpp"
 #include <stdexcept>
 #include <sstream>
-
+#include <iostream>
 namespace simpledb::tx::recovery {
 
 RollbackLogRecord::RollbackLogRecord(std::span<char> bytes) : d_txnum(-1) {
@@ -32,6 +32,7 @@ int RollbackLogRecord::write_to_log(std::shared_ptr<simpledb::log::LogManager> l
     std::vector<char> buf(sizeof(int)*2, 0);
     *reinterpret_cast<int*>(buf.data()) = ROLLBACK;
     *reinterpret_cast<int*>(buf.data() + sizeof(int)) = txnum;
+    std::cout << "<ROLLBACK " << txnum << ">" << std::endl;
     return lm->append(buf);
 }
 

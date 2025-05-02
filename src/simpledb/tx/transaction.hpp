@@ -46,6 +46,7 @@ private:
 
     std::shared_ptr<simpledb::tx::concurrency::ConcurrencyManager> d_concurrency_manager;
     std::shared_ptr<recovery::RecoveryManager> d_recovery_manager;
+    std::shared_ptr<BufferList> d_my_buffers;
     static int next_txnum();
 };
 

@@ -4,7 +4,7 @@
 #include <span>
 #include <cstring>
 #include <vector>
-
+#include <iostream>
 #include "simpledb/file/buffer_wrapper.hpp"
 #include "simpledb/log/log_manager.hpp"
 namespace simpledb::tx::recovery {
@@ -60,7 +60,7 @@ std::string SetIntLogRecord::to_string() const {
 }
 
 int SetIntLogRecord::write_to_log(std::shared_ptr<simpledb::log::LogManager> lm, int txnum, simpledb::file::BlockId blk, int offset, int val) {
-    int tpos = 0;
+    int tpos = sizeof(int);
     int fpos = tpos + sizeof(int);
     int bpos = fpos + blk.fileName().size() + sizeof(int);
     int opos = bpos + sizeof(int);
@@ -74,6 +74,7 @@ int SetIntLogRecord::write_to_log(std::shared_ptr<simpledb::log::LogManager> lm,
     bw.setInt(bpos, blk.number());
     bw.setInt(opos, offset);
     bw.setInt(vpos, val);
+    std::cout << "<SET_INT " << txnum << " " << blk.fileName() << " " << blk.number() << " " << offset << " " << val << ">" << std::endl;
     return lm->append(buf);
 }
 

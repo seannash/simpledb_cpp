@@ -4,6 +4,7 @@
 #include "simpledb/log/log_manager.hpp"
 #include "simpledb/file/block_id.hpp"
 #include <span>
+#include <iostream>
 
 namespace simpledb::tx::recovery {
 

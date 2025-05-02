@@ -22,7 +22,8 @@ RecoveryManager::RecoveryManager(
     , d_lm(lm)
     , d_bm(bm)
 {
-    StartLogRecord::write_to_log(lm, txnum);
+    int lsn =StartLogRecord::write_to_log(lm, txnum);
+    d_lm->flush(lsn);
 }
 
 void RecoveryManager::commit() {
@@ -58,16 +59,20 @@ int RecoveryManager::set_string(simpledb::buffer::Buffer &buf, int offset, const
 }
 
 void RecoveryManager::do_rollback() {
+    std::cout << "do_rollback: enter" << std::endl;
     simpledb::log::LogIterator it = d_lm->iterator();
     while (it.hasNext()) {
         std::vector<char>  record = it.next();
+        std::cout << "record: " << record.size() << std::endl;
         auto rec = LogRecordBuilder::build(record);
+        std::cout << "rec: " << rec->to_string() << std::endl;
         if (rec->txnum() == d_txnum) {
             if (rec->op() == LogRecord::START) 
-                return;
+                break;
             rec->undo(*d_tx);
         }
     }
+    std::cout << "do_rollback: exit" << std::endl;
 }
 
 void RecoveryManager::do_recover() {

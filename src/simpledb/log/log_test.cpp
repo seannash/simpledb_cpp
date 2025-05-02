@@ -31,7 +31,7 @@ void print_log_record(const std::span<char>& rec) {
     std::string message(rec.begin(), rec.end()-sizeof(int));
     int rec_num = 0;
     std::copy(rec.end()-sizeof(int), rec.end(), &rec_num);
-    std::cout << "Record:" << message << " " << rec_num << std::endl;
+    std::cout << "Record (" << rec.size() <<"):" << message << " " << rec_num << std::endl;
     
 }
 

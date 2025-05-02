@@ -23,13 +23,13 @@ void Schema::add_string_field(std::string_view name, int length) {
 
 void Schema::add(std::string_view name, Schema schema) {
     auto type = schema.get_type(name);
-    auto length = schema.length(name);
+    auto length = schema.get_length(name);
     add_field(name, type, length);
 }
 
 void Schema::add_all(Schema& schema) {
     for (auto& field : schema.fields()) {
-        add_field(field, schema.get_type(field), schema.length(field));
+        add_field(field, schema.get_type(field), schema.get_length(field));
     }
 }
 
@@ -45,7 +45,7 @@ FieldType Schema::get_type(std::string_view name) {
     return d_info.find(std::string(name))->second.type();
 }
 
-int Schema::length(std::string_view name) {
+int Schema::get_length(std::string_view name) {
     return d_info.find(std::string(name))->second.length();
 }
 

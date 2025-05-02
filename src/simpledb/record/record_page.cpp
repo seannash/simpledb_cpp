@@ -27,7 +27,6 @@ std::string RecordPage::get_string(int slot, std::string_view field) {
 
 void RecordPage::set_int(int slot, std::string_view field, int value) {
     int pos = offset(slot) + d_layout.offset(field);
-    std::cout << "Setting int at " << pos << " to " << value << std::endl;
     d_tx->set_int(d_blk, pos, value, true);
 }
 
@@ -39,7 +38,6 @@ void RecordPage::set_string(int slot, std::string_view field, std::string_view v
 void RecordPage::format() {
     int slot = 0;
     while (is_slot_valid(slot)) {
-        std::cout << "Formatting slot " << slot << " " << offset(slot) << std::endl;
         d_tx->set_int(d_blk, offset(slot), EMPTY_SLOT, false);
         auto sch = d_layout.schema();
         for (const auto& field : sch.fields()) {

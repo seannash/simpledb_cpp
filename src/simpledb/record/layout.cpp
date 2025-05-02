@@ -41,7 +41,7 @@ int Layout::length_in_bytes(std::string_view field) {
         case FieldType::INT:
             return sizeof(int);
         case FieldType::STRING:
-            return d_schema.length(field)+sizeof(int);
+            return d_schema.get_length(field)+sizeof(int);
     }
     throw std::runtime_error("Invalid type");
 }

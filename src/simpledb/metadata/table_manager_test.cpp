@@ -13,10 +13,13 @@ int main() {
     sch->add_int_field("A");
     sch->add_string_field("B", 9);
     tm.create_table("MyTable", sch, tx);
+    tx->commit();
 
+    //auto layout = std::make_shared<simpledb::record::Layout>(*sch);
     auto layout = tm.get_layout("MyTable", tx);
     int size = layout->slot_size();
-    auto sch2 = layout->schema();
+    auto& sch2 = layout->schema();
+    
     std::cout << "MyTable has slot size " << size << std::endl;
     std::cout << "Its fields are:" << std::endl;
     
@@ -25,10 +28,10 @@ int main() {
         if (sch2.get_type(fldname) == simpledb::record::FieldType::INT) {
             type = "int";
         } else {
-            int strlen = sch2.length(fldname);
+            int strlen = sch2.get_length(fldname);
             type = "varchar(" + std::to_string(strlen) + ")";
         }
-        std::cout << fldname << ": " << type << std::endl;
+        std::cout << "FIELD: " << fldname << ": " << type << std::endl;
     }
     
     tx->commit();

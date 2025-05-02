@@ -29,7 +29,6 @@ SetStringLogRecord::SetStringLogRecord(std::span<char> bytes)
     d_offset = bw.getInt(opus);
     int vpos = opus + sizeof(int);
     d_val = bw.getString(vpos);
-    std::cout << "d_val: " << d_val << std::endl;
 }
 
 int SetStringLogRecord::op() const {
@@ -68,12 +67,6 @@ int SetStringLogRecord::write_to_log(std::shared_ptr<simpledb::log::LogManager> 
     bw.setInt(bpos, blk.number());
     bw.setInt(opos, offset);
     bw.setString(vpos, val);
-    std::cout << "val: " << val << std::endl;
-    std::cout << "buf: ";
-    for (char c : buf) {
-        std::cout << (int)c << " ";
-    }
-    std::cout << std::endl;
     std::cout << "<SET_STRING " << txnum << " " << blk.fileName() << " " << blk.number() << " " << offset << " !" << val << ">" << std::endl;
     return lm->append(buf);
 }

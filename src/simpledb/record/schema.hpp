@@ -22,8 +22,8 @@ public:
     std::span<std::string> fields();
     bool has_field(std::string_view name);
     FieldType get_type(std::string_view name);
-    int length(std::string_view name);
-    
+    int get_length(std::string_view name);
+
 private:
 
     class FieldInfo {

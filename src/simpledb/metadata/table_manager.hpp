@@ -21,6 +21,8 @@ public:
 
 private:
     std::shared_ptr<simpledb::tx::Transaction> d_tx;
+    std::shared_ptr<simpledb::record::Layout> d_tcat_layout;
+    std::shared_ptr<simpledb::record::Layout> d_fcat_layout;
 
 };
 

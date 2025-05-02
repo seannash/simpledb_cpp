@@ -24,14 +24,12 @@ void Transaction::commit() {
     d_recovery_manager->commit();
     d_concurrency_manager->release();
     d_my_buffers->unpinAll();
-    std::cout << "Transaction " << d_txnum << " committed" << std::endl;
 }
 
 void Transaction::rollback() {
     d_recovery_manager->rollback();
     d_concurrency_manager->release();
     d_my_buffers->unpinAll();
-    std::cout << "Transaction " << d_txnum << " rolled back" << std::endl;
 }
 
 void Transaction::recover() {

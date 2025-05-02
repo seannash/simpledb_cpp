@@ -3,6 +3,8 @@ add_library(metadata
     view_manager.cpp
     stat_manager.cpp
     stat_info.cpp
+    index_info.cpp
+    index_manager.cpp
 )
 
 target_include_directories(metadata

@@ -8,7 +8,7 @@ constexpr int EMPTY_SLOT = 0;
 constexpr int USED_SLOT = 1;
 }
 
-RecordPage::RecordPage(simpledb::tx::Transaction* tx, simpledb::file::BlockId& blk, Layout layout)
+RecordPage::RecordPage(std::shared_ptr<simpledb::tx::Transaction> tx, simpledb::file::BlockId& blk, Layout layout)
     : d_tx(tx)
     , d_blk(blk)
     , d_layout(layout) {
@@ -27,6 +27,7 @@ std::string RecordPage::get_string(int slot, std::string_view field) {
 
 void RecordPage::set_int(int slot, std::string_view field, int value) {
     int pos = offset(slot) + d_layout.offset(field);
+    std::cout << "Setting int at " << pos << " to " << value << std::endl;
     d_tx->set_int(d_blk, pos, value, true);
 }
 
@@ -38,6 +39,7 @@ void RecordPage::set_string(int slot, std::string_view field, std::string_view v
 void RecordPage::format() {
     int slot = 0;
     while (is_slot_valid(slot)) {
+        std::cout << "Formatting slot " << slot << " " << offset(slot) << std::endl;
         d_tx->set_int(d_blk, offset(slot), EMPTY_SLOT, false);
         auto sch = d_layout.schema();
         for (const auto& field : sch.fields()) {
@@ -57,10 +59,11 @@ void RecordPage::delete_slot(int slot) {
 }
 
 int RecordPage::next_after(int slot) {
-    return search_after(slot, EMPTY_SLOT);
+    return search_after(slot, USED_SLOT);
 }
 
 int RecordPage::insert_after(int slot) {
+    slot += 1;
     int new_slot = search_after(slot, EMPTY_SLOT);
     if (new_slot >= 0) {
         set_flag(new_slot, USED_SLOT);
@@ -69,6 +72,7 @@ int RecordPage::insert_after(int slot) {
 }
 
 int RecordPage::search_after(int slot, int flag) {
+    slot += 1;
     while (is_slot_valid(slot)) {
         if (d_tx->get_int(d_blk, offset(slot)) == flag) {
             return slot;
@@ -84,7 +88,7 @@ void RecordPage::set_flag(int slot, int flag) {
 }
 
 bool RecordPage::is_slot_valid(int slot) {
-    return offset(slot+1) < d_tx->block_size();
+    return offset(slot)>=0 && offset(slot+1) <= d_tx->block_size();
 }
 
 int RecordPage::offset(int slot) {

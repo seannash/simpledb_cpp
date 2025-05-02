@@ -8,7 +8,7 @@ namespace simpledb::record {
 
 class RecordPage {
 public:
-    RecordPage(simpledb::tx::Transaction* tx, simpledb::file::  BlockId& blk, Layout layout);
+    RecordPage(std::shared_ptr<simpledb::tx::Transaction> tx, simpledb::file::  BlockId& blk, Layout layout);
     ~RecordPage() = default;
 
     int get_int(int slot, std::string_view field);
@@ -20,14 +20,16 @@ public:
     
     int next_after(int slot);
     int insert_after(int slot);
-
+    
+    bool is_slot_valid(int slot);
+    
 private:
-    simpledb::tx::Transaction* d_tx;
+    std::shared_ptr<simpledb::tx::Transaction> d_tx;
     simpledb::file::BlockId d_blk;
     Layout d_layout;
 
     int offset(int slot);
-    bool is_slot_valid(int slot);
+    
     void set_flag(int slot, int flag);
     int search_after(int slot, int flag);
 };

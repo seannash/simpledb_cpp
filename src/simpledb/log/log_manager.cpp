@@ -25,11 +25,14 @@ int LogManager::append(std::span<char> log_record) {
     int boundary = d_log_page.getInt(0);
     int record_size = log_record.size();
     int bytes_needed = record_size + sizeof(int);
-    if (boundary - bytes_needed < sizeof(int)) {
+    std::cout << "A Boundary: " << boundary << " bytes_needed: " << bytes_needed << std::endl;
+    if ((boundary - bytes_needed) < (int)sizeof(int)) {
+        std::cout << "Corner case" << std::endl;
         flush();
         d_currentBlock = appendNewBlock();
         boundary = d_log_page.getInt(0);
     }
+    std::cout << "B Boundary: " << boundary << " bytes_needed: " << bytes_needed << std::endl;
     int rec_pos = boundary - bytes_needed;
     d_log_page.setBytes(rec_pos, log_record);
     d_log_page.setInt(0, rec_pos);

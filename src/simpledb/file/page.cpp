@@ -1,7 +1,7 @@
 #include "page.hpp"
 #include <cstring>
 #include <stdexcept>
-
+#include <iostream>
 namespace simpledb::file {
 
 Page::Page(int pageSize)
@@ -12,6 +12,7 @@ int Page::getInt(int offset) const {
 }
 
 void Page::setInt(int offset, int value) {
+    std::cout << "PAGE: Setting int at " << offset << " to " << value << std::endl;
     d_buffer_wrapper.setInt(offset, value);
 }   
 

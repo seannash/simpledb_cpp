@@ -1,6 +1,7 @@
 add_library(record
     schema.cpp
     layout.cpp
+    record_page.cpp
 )
 
 target_include_directories(record

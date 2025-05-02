@@ -31,3 +31,14 @@ target_include_directories(record_test
 target_link_libraries(record_test
     server
 )
+
+add_executable(table_scan_test
+    table_scan_test.cpp
+)
+target_include_directories(table_scan_test
+    PRIVATE
+        ${CMAKE_SOURCE_DIR}/src
+)
+target_link_libraries(table_scan_test
+    server
+)

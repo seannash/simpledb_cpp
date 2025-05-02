@@ -1,5 +1,6 @@
 add_library(metadata
     table_manager.cpp
+    view_manager.cpp
 )
 
 target_include_directories(metadata

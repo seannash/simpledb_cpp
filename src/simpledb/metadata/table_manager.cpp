@@ -8,7 +8,6 @@ namespace simpledb::metadata {
 
 namespace {
 
-constexpr int MAX_NAME_LEN = 16;
 constexpr int MAX_SLOTS = 1000;
 
 }

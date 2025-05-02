@@ -10,6 +10,7 @@ namespace simpledb::metadata {
 
 class TableManager {
 public:
+    static constexpr int MAX_NAME_LEN = 16;
     TableManager(bool is_new, std::shared_ptr<simpledb::tx::Transaction> tx);
     ~TableManager() = default;
 

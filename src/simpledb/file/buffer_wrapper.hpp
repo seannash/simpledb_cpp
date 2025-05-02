@@ -20,8 +20,6 @@ public:
     std::string getString(int offset) const;
     void setString(int offset, std::string_view value);
 
-    std::vector<char>* contents();
-
     int maxLength(std::string_view str) const;
 
 private:

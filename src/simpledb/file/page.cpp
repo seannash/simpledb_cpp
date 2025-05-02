@@ -1,4 +1,6 @@
 #include "page.hpp"
+#include <cstring>
+#include <stdexcept>
 
 namespace simpledb::file {
 
@@ -6,7 +8,7 @@ Page::Page(int pageSize)
 : d_data(pageSize), d_buffer_wrapper(d_data) {}
 
 int Page::getInt(int offset) const {
-    return *reinterpret_cast<const int*>(d_data.data() + offset);
+    return d_buffer_wrapper.getInt(offset);
 }
 
 void Page::setInt(int offset, int value) {
@@ -17,8 +19,7 @@ std::vector<char> Page::getBytes(int offset) const {
     return d_buffer_wrapper.getBytes(offset);
 }   
 
-void Page::setBytes(int offset, std::span<char> value) {
-
+void Page::setBytes(int offset, const std::span<char>& value) {
     d_buffer_wrapper.setBytes(offset, value);
 }   
 

@@ -1,0 +1,45 @@
+#pragma once
+
+#include <string>
+#include <vector>
+#include <string_view>
+#include "simpledb/record/field_type.hpp"
+#include <unordered_map>
+#include <span>
+
+namespace simpledb::record {
+
+class Schema {
+public:
+    Schema();
+
+    void add_field(std::string_view name, FieldType type, int length);
+    void add_int_field(std::string_view name);
+    void add_string_field(std::string_view name, int length);
+    void add(std::string_view name, Schema schema);
+    void add_all(Schema& schema);
+
+    std::span<std::string> fields();
+    bool has_field(std::string_view name);
+    FieldType get_type(std::string_view name);
+    int length(std::string_view name);
+    
+private:
+
+    class FieldInfo {
+    public:
+        FieldInfo(FieldType type, int length) : d_type(type), d_length(length) {}
+        FieldType type() const { return d_type; }
+        int length() const { return d_length; }
+    private:
+        FieldType d_type;
+        int d_length;
+    };
+
+    std::unordered_map<std::string, FieldInfo> d_info;
+    std::vector<std::string> d_fields;
+
+};
+
+} // namespace simpledb::record
+

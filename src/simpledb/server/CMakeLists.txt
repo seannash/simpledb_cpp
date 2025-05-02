@@ -15,4 +15,5 @@ target_link_libraries(server
         buffer
         log
         file
+        record
 )

@@ -28,5 +28,10 @@ std::string BlockId::toString() const {
     return ss.str();
 }   
 
+std::ostream& operator<<(std::ostream& os, const BlockId& blockId) {
+    os << blockId.toString();
+    return os;
+}
+
 } // namespace simpledb::file
 

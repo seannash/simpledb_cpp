@@ -2,7 +2,7 @@
 
 #include <string>
 #include <string_view>
-
+#include <iostream>
 namespace simpledb::file {
 
 class BlockId {
@@ -25,4 +25,6 @@ private:
     std::string d_filename;
     int d_blockNumber;
 };
+
+std::ostream& operator<<(std::ostream& os, const BlockId& blockId);
 } // namespace simpledb::file

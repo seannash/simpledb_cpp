@@ -1,0 +1,28 @@
+#pragma once
+
+#include "simpledb/tx/transaction.hpp"
+#include "simpledb/log/log_manager.hpp"
+#include "simpledb/buffer/buffer_manager.hpp"
+
+#include <memory>
+#include <string>
+namespace simpledb::tx::recovery {
+
+class RecoveryManager {
+public:
+    RecoveryManager(std::shared_ptr<simpledb::tx::Transaction> tx, int txnum,  std::shared_ptr<simpledb::log::LogManager> lm, std::shared_ptr<simpledb::buffer::BufferManager> bm);
+
+    void commit();
+    void rollback();
+    void recover();
+
+    void set_int(simpledb::buffer::Buffer &buf, int offset, int val);
+    void set_string(simpledb::buffer::Buffer &buf, int offset, const std::string &val);
+
+private:
+    std::shared_ptr<simpledb::tx::Transaction> d_tx;
+    int d_txnum;
+    std::shared_ptr<simpledb::log::LogManager> d_lm;
+    std::shared_ptr<simpledb::buffer::BufferManager> d_bm;
+};
+}

@@ -67,4 +67,8 @@ std::vector<char>* BufferWrapper::contents() {
     return nullptr;
 }
 
+int BufferWrapper::maxLength(std::string_view str) const {
+    return str.size() + sizeof(int);
+}
+
 } // namespace simpledb::file

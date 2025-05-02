@@ -22,6 +22,8 @@ public:
 
     std::vector<char>* contents();
 
+    int maxLength(std::string_view str) const;
+
 private:
     std::span<char> d_data;
 };

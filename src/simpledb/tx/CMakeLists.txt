@@ -1,5 +1,14 @@
 add_library(tx
     transaction.cpp
+    recovery/recovery_manager.cpp
+    recovery/log_record.cpp
+    recovery/start_log_record.cpp
+    recovery/checkpoint_log_record.cpp
+    recovery/commit_log_record.cpp
+    recovery/rollback_log_record.cpp
+    recovery/set_int_log_record.cpp
+    recovery/set_string_log_record.cpp
+    recovery/log_record_builder.cpp
 )
 
 target_include_directories(tx

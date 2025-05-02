@@ -6,7 +6,7 @@
 
 int main() {
     simpledb::server::SimpleDB db("testdb", 4096, 10);
-    auto tx = db.transaction();
+    auto tx = db.new_tx();
     simpledb::record::Schema sch{};
     sch.add_int_field("A");
     sch.add_string_field("B", 9);

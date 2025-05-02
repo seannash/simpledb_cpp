@@ -2,6 +2,8 @@ add_library(record
     schema.cpp
     layout.cpp
     record_page.cpp
+    table_scan.cpp
+    rid.cpp
 )
 
 target_include_directories(record

@@ -13,7 +13,7 @@ public:
     SimpleDB(std::string_view db_directory);
     ~SimpleDB() = default;
 
-    std::shared_ptr<simpledb::tx::Transaction> transaction();
+    std::shared_ptr<simpledb::tx::Transaction> new_tx();
 
     std::shared_ptr<simpledb::file::FileManager> file_manager();
     std::shared_ptr<simpledb::log::LogManager> log_manager();

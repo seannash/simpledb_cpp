@@ -30,7 +30,7 @@ std::shared_ptr<simpledb::buffer::BufferManager> SimpleDB::buffer_manager() {
     return d_buffer_manager;
 }
 
-std::shared_ptr<simpledb::tx::Transaction> SimpleDB::transaction() {
+std::shared_ptr<simpledb::tx::Transaction> SimpleDB::new_tx() {
     return std::make_shared<simpledb::tx::Transaction>(d_file_manager, d_log_manager, d_buffer_manager);
 }
 

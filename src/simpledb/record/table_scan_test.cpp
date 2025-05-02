@@ -12,9 +12,9 @@ int main() {
     simpledb::record::Schema sch {};
     sch.add_int_field("A");
     sch.add_string_field("B", 9);
-    simpledb::record::Layout layout(sch);
-    for (const auto& fldname : layout.schema().fields()) {
-        int offset = layout.offset(fldname);
+    std::shared_ptr<simpledb::record::Layout> layout = std::make_shared<simpledb::record::Layout>(sch);
+    for (const auto& fldname : layout->schema().fields()) {
+        int offset = layout->offset(fldname);
         std::cout << fldname << " has offset " << offset << std::endl;
     }
 

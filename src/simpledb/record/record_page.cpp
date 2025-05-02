@@ -95,4 +95,8 @@ int RecordPage::offset(int slot) {
     return slot * d_layout.slot_size();
 }
 
+simpledb::file::BlockId RecordPage::block() const {
+    return d_blk;
+}
+
 } // namespace simpledb::record

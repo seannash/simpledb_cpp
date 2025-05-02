@@ -16,4 +16,5 @@ target_link_libraries(server
         log
         file
         record
+        metadata
 )

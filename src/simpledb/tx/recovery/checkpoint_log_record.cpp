@@ -14,12 +14,13 @@ int CheckpointLogRecord::txnum() const {
     return -1;  // Checkpoint records don't have a transaction number
 }
 
-void CheckpointLogRecord::undo(int txnum) {
+void CheckpointLogRecord::undo(Transaction& tx) {
 }
 
-int CheckpointLogRecord::write_to_log(std::shared_ptr<simpledb::log::LogManager> lm, int txnum, simpledb::file::BlockId blk, int offset, std::span<char> val) {
-    std::vector<char> data(sizeof(int), 0);
-    *reinterpret_cast<int*>(data.data()) = txnum;
+int CheckpointLogRecord::write_to_log(std::shared_ptr<simpledb::log::LogManager> lm, int txnum) {
+    std::vector<char> data(sizeof(int), 0); 
+    *reinterpret_cast<int*>(data.data()) = CHECKPOINT;
+    *reinterpret_cast<int*>(data.data() + sizeof(int)) = txnum;
     return lm->append(data);
 }
 

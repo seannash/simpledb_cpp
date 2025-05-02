@@ -14,7 +14,7 @@ public:
     explicit SetStringLogRecord(std::span<char> bytes);
     int op() const override;
     int txnum() const override;
-    void undo(int txnum) override;
+    void undo(Transaction& tx) override;
     std::string to_string() const override;
     static int write_to_log(std::shared_ptr<simpledb::log::LogManager> lm, int txnum, simpledb::file::BlockId blk, int offset, std::string_view val);
 

@@ -47,7 +47,10 @@ int SetIntLogRecord::txnum() const {
     return d_txnum;
 }
 
-void SetIntLogRecord::undo(int txnum) {
+void SetIntLogRecord::undo(Transaction& tx) {
+    tx.pin(d_blk);
+    tx.set_int(d_blk, d_offset, d_val, false); // Do not log this
+    tx.unpin(d_blk);
 }
 
 std::string SetIntLogRecord::to_string() const {
@@ -56,7 +59,7 @@ std::string SetIntLogRecord::to_string() const {
     return ss.str();
 }
 
-int SetIntLogRecord::write_to_log(std::shared_ptr<simpledb::log::LogManager> lm, int txnum, simpledb::file::BlockId blk, int offset, std::span<char> val) {
+int SetIntLogRecord::write_to_log(std::shared_ptr<simpledb::log::LogManager> lm, int txnum, simpledb::file::BlockId blk, int offset, int val) {
     int tpos = 0;
     int fpos = tpos + sizeof(int);
     int bpos = fpos + blk.fileName().size() + sizeof(int);
@@ -70,7 +73,7 @@ int SetIntLogRecord::write_to_log(std::shared_ptr<simpledb::log::LogManager> lm,
     bw.setString(fpos, blk.fileName());
     bw.setInt(bpos, blk.number());
     bw.setInt(opos, offset);
-    bw.setInt(vpos, val.size());
+    bw.setInt(vpos, val);
     return lm->append(buf);
 }
 

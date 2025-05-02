@@ -16,13 +16,16 @@ public:
     void rollback();
     void recover();
 
-    void set_int(simpledb::buffer::Buffer &buf, int offset, int val);
-    void set_string(simpledb::buffer::Buffer &buf, int offset, const std::string &val);
+    int set_int(simpledb::buffer::Buffer &buf, int offset, int val);
+    int set_string(simpledb::buffer::Buffer &buf, int offset, const std::string &val);
 
 private:
     std::shared_ptr<simpledb::tx::Transaction> d_tx;
     int d_txnum;
     std::shared_ptr<simpledb::log::LogManager> d_lm;
     std::shared_ptr<simpledb::buffer::BufferManager> d_bm;
+
+    void do_rollback();
+    void do_recover();
 };
 }

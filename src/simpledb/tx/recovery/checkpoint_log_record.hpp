@@ -14,9 +14,9 @@ public:
 
     int op() const override;
     int txnum() const override;
-    void undo(int txnum) override;
+    void undo(Transaction& tx) override;
 
-    static int write_to_log(std::shared_ptr<simpledb::log::LogManager> lm, int txnum, simpledb::file::BlockId blk, int offset, std::span<char> val);
+    static int write_to_log(std::shared_ptr<simpledb::log::LogManager> lm, int txnum);
 
     std::string to_string() const override;
 

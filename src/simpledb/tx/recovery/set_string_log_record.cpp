@@ -37,7 +37,10 @@ int SetStringLogRecord::txnum() const {
     return d_txnum;
 }
 
-void SetStringLogRecord::undo(int txnum) {
+void SetStringLogRecord::undo(Transaction& tx) {
+    tx.pin(d_blk);
+    tx.set_string(d_blk, d_offset, d_val, false); // Do not log this
+    tx.unpin(d_blk);
 }
 
 std::string SetStringLogRecord::to_string() const {

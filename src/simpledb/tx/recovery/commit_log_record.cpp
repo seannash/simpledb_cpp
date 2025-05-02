@@ -32,7 +32,7 @@ int CommitLogRecord::txnum() const {
     return d_txnum;
 }
 
-void CommitLogRecord::undo(int txnum) {
+void CommitLogRecord::undo(Transaction& tx) {
 }
 
 std::string CommitLogRecord::to_string() const {
@@ -41,7 +41,7 @@ std::string CommitLogRecord::to_string() const {
     return ss.str();
 }
 
-int CommitLogRecord::write_to_log(std::shared_ptr<simpledb::log::LogManager> lm, int txnum, simpledb::file::BlockId blk, int offset, std::span<char> val) {
+int CommitLogRecord::write_to_log(std::shared_ptr<simpledb::log::LogManager> lm, int txnum) {
     std::vector<char> buf(sizeof(int)*2, 0);
     *reinterpret_cast<int*>(buf.data()) = COMMIT;
     *reinterpret_cast<int*>(buf.data() + sizeof(int)) = txnum;

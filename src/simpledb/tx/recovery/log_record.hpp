@@ -3,6 +3,8 @@
 #include <span>
 #include <memory>
 
+#include "simpledb/tx/transaction.hpp"
+
 namespace simpledb::tx::recovery {
 
 class LogRecord {
@@ -20,7 +22,7 @@ public:
 
     virtual int op() const = 0;
     virtual int txnum() const = 0;
-    virtual void undo(int txnum) = 0;
+    virtual void undo(Transaction& tx) = 0;
 
     virtual std::string to_string() const = 0;
 

@@ -4,14 +4,9 @@
 #include "simpledb/query/scan.hpp"
 #include "simpledb/record/schema.hpp"
 #include "simpledb/query/constant.hpp"
-namespace simpledb::query {
+#include "simpledb/plan/plan.hpp"
 
-class Plan {
-public:
-    int distinct_values(std::string_view field) const {
-        return 1;
-    };
-};
+namespace simpledb::query {
 
 class Term {
 public:
@@ -19,7 +14,7 @@ public:
 
     bool is_satisfied(simpledb::query::Scan& s) const;
     bool applies_to(const simpledb::record::Schema& sch) const;
-    int reduction_factor(Plan& plan) const;
+    int reduction_factor(const simpledb::plan::Plan& plan) const;
     Constant equates_with_constant(std::string_view field) const;
     std::string equates_with_field(std::string_view field) const;
     std::string to_string() const;

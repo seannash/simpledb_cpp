@@ -16,19 +16,19 @@ std::shared_ptr<simpledb::query::Scan> TablePlan::open() {
     return std::make_shared<simpledb::record::TableScan>(d_tx, d_table_name, d_layout);
 }
 
-int TablePlan::blocks_accessed() {
+int TablePlan::blocks_accessed() const {
     return d_stat_info.blocks_accessed();
 }
 
-int TablePlan::records_output() {
+int TablePlan::records_output() const {
     return d_stat_info.records_output();
 }
 
-int TablePlan::distinct_values(std::string_view field) {
+int TablePlan::distinct_values(std::string_view field) const {
     return d_stat_info.distinct_values(field);
 }
 
-record::Schema& TablePlan::schema() {
+record::Schema& TablePlan::schema() const {
     return d_layout->schema();
 }
 

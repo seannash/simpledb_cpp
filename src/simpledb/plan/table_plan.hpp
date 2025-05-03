@@ -18,10 +18,10 @@ public:
     ~TablePlan();
 
     std::shared_ptr<simpledb::query::Scan> open() override;
-    int blocks_accessed() override;
-    int records_output() override;
-    int distinct_values(std::string_view field) override;
-    record::Schema& schema() override;
+    int blocks_accessed() const override;
+    int records_output() const override;
+    int distinct_values(std::string_view field) const override;
+    record::Schema& schema() const override;
 
 private:
     std::shared_ptr<simpledb::tx::Transaction> d_tx;

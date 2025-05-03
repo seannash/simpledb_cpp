@@ -1,6 +1,7 @@
 add_library(plan
     plan.cpp
     table_plan.cpp
+    select_plan.cpp
 )
 
 target_include_directories(plan

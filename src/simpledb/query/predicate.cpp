@@ -23,7 +23,7 @@ bool Predicate::is_satisfied(simpledb::query::Scan& s) const {
     return true;
 }
 
-int Predicate::reduction_factor(Plan& plan) const {
+int Predicate::reduction_factor(const simpledb::plan::Plan& plan) const {
     int factor = 1;
     for (const auto& term : d_terms) {
         factor *= term->reduction_factor(plan);

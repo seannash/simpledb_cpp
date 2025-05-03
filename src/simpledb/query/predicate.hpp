@@ -3,6 +3,7 @@
 #include "simpledb/query/term.hpp"
 #include "simpledb/query/scan.hpp"
 #include "simpledb/record/schema.hpp"
+#include "simpledb/plan/plan.hpp"
 
 #include <memory>
 #include <string>
@@ -17,7 +18,7 @@ public:
 
     void conjoin_with(std::shared_ptr<Predicate> pred);
     bool is_satisfied(simpledb::query::Scan& s) const;
-    int reduction_factor(Plan& plan) const;
+    int reduction_factor(const simpledb::plan::Plan& plan) const;
     std::shared_ptr<Predicate> select_sub_predicates(const simpledb::record::Schema& schema) const;
     std::shared_ptr<Predicate> join_sub_predicates(const simpledb::record::Schema& schema1, const simpledb::record::Schema& schema2) const;
     Constant equates_with_constant(std::string_view field) const;

@@ -20,7 +20,7 @@ bool Term::applies_to(const simpledb::record::Schema& sch) const {
     return d_lhs->applies_to(sch) && d_rhs->applies_to(sch);
 }
 
-int Term::reduction_factor(Plan& plan) const {
+int Term::reduction_factor(const simpledb::plan::Plan& plan) const {
     std::string lhs_name {};
     std::string rhs_name {};
     if (d_lhs->is_field_name() && d_rhs->is_field_name()) {

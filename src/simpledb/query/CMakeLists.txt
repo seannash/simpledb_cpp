@@ -32,8 +32,8 @@ target_include_directories(query_unit_tests
 )
 target_link_libraries(query_unit_tests
     PUBLIC
-    query
-    Catch2::Catch2WithMain
+        query
+        Catch2::Catch2WithMain
 )
 
 add_test(NAME query_unit_tests COMMAND query_unit_tests)

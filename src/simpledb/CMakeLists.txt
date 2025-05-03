@@ -6,6 +6,7 @@ add_subdirectory(tx)
 add_subdirectory(record)
 add_subdirectory(metadata)
 add_subdirectory(query)
+add_subdirectory(parser)
 add_subdirectory(server)
 
 

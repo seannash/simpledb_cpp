@@ -37,7 +37,7 @@ std::span<std::string> Schema::fields() {
     return d_fields;
 }
 
-bool Schema::has_field(std::string_view name) {
+bool Schema::has_field(std::string_view name) const {
     return d_info.find(std::string(name)) != d_info.end();
 }
 

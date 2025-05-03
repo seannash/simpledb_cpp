@@ -37,7 +37,7 @@ std::string ProductScan::get_string(std::string_view field) {
     return d_right_scan->get_string(field);
 }
 
-std::any ProductScan::get_val(std::string_view field) {
+simpledb::query::Constant ProductScan::get_val(std::string_view field) {
     if (d_left_scan->has_field(field)) {
         return d_left_scan->get_val(field);
     }

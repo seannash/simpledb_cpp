@@ -29,7 +29,7 @@ std::string SelectScan::get_string(std::string_view field) {
     return d_scan->get_string(field);
 }
 
-std::any SelectScan::get_val(std::string_view field) {
+simpledb::query::Constant SelectScan::get_val(std::string_view field) {
     return d_scan->get_val(field);
 }
 
@@ -59,7 +59,7 @@ void SelectScan::set_string(std::string_view field, std::string_view val) {
     }
 }
 
-void SelectScan::set_val(std::string_view field, const std::any& val) {
+void SelectScan::set_val(std::string_view field, simpledb::query::Constant val) {
     auto us = std::dynamic_pointer_cast<UpdateScan>(d_scan);
     if (us) {
         us->set_val(field, val);

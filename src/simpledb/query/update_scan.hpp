@@ -14,7 +14,7 @@ public:
 
     virtual void set_int(std::string_view field, int val) = 0;
     virtual void set_string(std::string_view field, std::string_view val) = 0;
-    virtual void set_val(std::string_view field, const std::any& val) = 0;
+    virtual void set_val(std::string_view field, Constant val) = 0;
     
     virtual void insert() = 0;
     virtual void delete_record() = 0;

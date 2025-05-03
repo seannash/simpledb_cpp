@@ -20,7 +20,7 @@ public:
     void add_all(Schema& schema);
 
     std::span<std::string> fields();
-    bool has_field(std::string_view name);
+    bool has_field(std::string_view name) const;
     FieldType get_type(std::string_view name);
     int get_length(std::string_view name);
 

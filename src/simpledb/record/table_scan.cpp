@@ -71,13 +71,13 @@ std::string TableScan::get_string(std::string_view field) {
     return d_rp->get_string(d_current_slot, field);
 }
 
-std::any TableScan::get_val(std::string_view field) {
+simpledb::query::Constant TableScan::get_val(std::string_view field) {
     if (d_layout->schema().get_type(field) == FieldType::INT) {
-        return std::any(get_int(field));
+        return simpledb::query::Constant(get_int(field));
     } else if (d_layout->schema().get_type(field) == FieldType::STRING) {
-        return std::any(get_string(field));
+        return simpledb::query::Constant(get_string(field));
     }
-    return std::any();
+    throw std::runtime_error("Invalid field type");
 }
 
 void TableScan::set_int(std::string_view field, int value) {
@@ -88,11 +88,11 @@ void TableScan::set_string(std::string_view field, std::string_view value) {
     d_rp->set_string(d_current_slot, field, value);
 }
 
-void TableScan::set_val(std::string_view field, const std::any& value) {
+void TableScan::set_val(std::string_view field, simpledb::query::Constant value) {
     if (d_layout->schema().get_type(field) == FieldType::INT) {
-        set_int(field, std::any_cast<int>(value));
+        set_int(field, value.as_int());
     } else if (d_layout->schema().get_type(field) == FieldType::STRING) {
-        set_string(field, std::any_cast<std::string>(value));
+        set_string(field, value.as_string());
     }
 }
 

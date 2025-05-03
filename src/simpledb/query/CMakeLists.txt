@@ -5,6 +5,8 @@ add_library(query STATIC
     select_scan.cpp
     project_scan.cpp
     product_scan.cpp
+    constant.cpp
+    expression.cpp
 )
 
 target_include_directories(query
@@ -17,3 +19,19 @@ target_include_directories(query
 target_link_libraries(query
     PUBLIC
 )
+
+add_executable(query_unit_tests
+    constant.t.cpp
+)
+target_include_directories(query_unit_tests
+    PUBLIC
+        ${CMAKE_SOURCE_DIR}/src
+        ${CMAKE_SOURCE_DIR}/src/simpledb/query
+)
+target_link_libraries(query_unit_tests
+    PUBLIC
+    query
+    Catch2::Catch2WithMain
+)
+
+add_test(NAME query_unit_tests COMMAND query_unit_tests)

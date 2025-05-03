@@ -2,7 +2,8 @@
 
 #include <memory>
 #include <string_view>
-#include <any>
+
+#include "simpledb/query/constant.hpp"
 #include "simpledb/tx/transaction.hpp"
 #include "simpledb/record/layout.hpp"
 #include "simpledb/record/rid.hpp"
@@ -27,10 +28,10 @@ public:
 
     int get_int(std::string_view field) override;
     std::string get_string(std::string_view field) override;
-    std::any get_val(std::string_view field) override;
+    simpledb::query::Constant get_val(std::string_view field) override;
     void set_int(std::string_view field, int value) override;
     void set_string(std::string_view field, std::string_view value) override;
-    void set_val(std::string_view field, const std::any& value) override;
+    void set_val(std::string_view field, simpledb::query::Constant value) override;
     RID current_rid() override;
     
     void delete_record() override;

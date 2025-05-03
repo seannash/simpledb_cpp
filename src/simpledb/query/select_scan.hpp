@@ -23,14 +23,14 @@ public:
     bool next() override;
     int get_int(std::string_view field) override;
     std::string get_string(std::string_view field) override;
-    std::any get_val(std::string_view field) override;
+    Constant get_val(std::string_view field) override;
     bool has_field(std::string_view field) override;
     void close() override;    
 
     // UpdateScan interface methods
     void set_int(std::string_view field, int val) override;
     void set_string(std::string_view field, std::string_view val) override;
-    void set_val(std::string_view field, const std::any& val) override;
+    void set_val(std::string_view field, Constant val) override;
     void insert() override;
     void delete_record() override;
     simpledb::record::RID current_rid() override;

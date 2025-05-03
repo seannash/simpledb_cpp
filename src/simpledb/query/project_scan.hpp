@@ -18,7 +18,7 @@ public:
     bool next() override;
     int get_int(std::string_view field) override;
     std::string get_string(std::string_view field) override;
-    std::any get_val(std::string_view field) override;
+    Constant get_val(std::string_view field) override;
     bool has_field(std::string_view field) override;
     void close() override;
 

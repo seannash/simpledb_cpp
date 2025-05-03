@@ -31,7 +31,7 @@ std::string ProjectScan::get_string(std::string_view field) {
     return d_scan->get_string(field);
 }
 
-std::any ProjectScan::get_val(std::string_view field) {
+simpledb::query::Constant ProjectScan::get_val(std::string_view field) {
     if (!has_field(field)) {
         throw std::runtime_error("Field not in projection: " + std::string(field));
     }

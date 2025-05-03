@@ -11,6 +11,7 @@ namespace simpledb::query {
 
 class Expression {
 public:
+
     Expression(Constant val);
     Expression(std::string field_name);
     ~Expression() = default;

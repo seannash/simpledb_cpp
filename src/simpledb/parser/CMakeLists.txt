@@ -1,5 +1,13 @@
 add_library(parser
     lexer.cpp
+    parser.cpp
+    insert_data.cpp
+    modify_data.cpp
+    create_table_data.cpp
+    delete_data.cpp
+    create_index_data.cpp
+    query_data.cpp
+    create_view_data.cpp
 )
 target_include_directories(parser
     PUBLIC

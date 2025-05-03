@@ -1,4 +1,4 @@
-#include "simpledb/query/expession.hpp"
+#include "simpledb/query/expression.hpp"
 #include <stdexcept>
 
 namespace simpledb::query {
@@ -17,6 +17,10 @@ Expression::Expression(std::string field_name)
 
 bool Expression::is_field_name() const {
     return d_is_field_name;
+}
+
+bool Expression::is_constant() const {
+    return !d_is_field_name;
 }
 
 std::string Expression::as_field_name() const {

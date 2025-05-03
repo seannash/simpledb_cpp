@@ -16,6 +16,7 @@ public:
     ~Expression() = default;
     
     bool is_field_name() const;
+    bool is_constant() const;
     
     std::string as_field_name() const;
     Constant as_constant() const;

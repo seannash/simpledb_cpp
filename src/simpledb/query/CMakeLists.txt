@@ -5,6 +5,7 @@ add_library(query STATIC
     select_scan.cpp
     project_scan.cpp
     product_scan.cpp
+    term.cpp
     constant.cpp
     expression.cpp
 )

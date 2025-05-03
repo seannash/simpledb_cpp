@@ -27,13 +27,13 @@ void Schema::add(std::string_view name, Schema schema) {
     add_field(name, type, length);
 }
 
-void Schema::add_all(Schema& schema) {
-    for (auto& field : schema.fields()) {
+void Schema::add_all(const Schema& schema) {
+    for (const auto& field : schema.fields()) {
         add_field(field, schema.get_type(field), schema.get_length(field));
     }
 }
 
-std::span<std::string> Schema::fields() {
+std::span<const std::string> Schema::fields() const {
     return d_fields;
 }
 
@@ -41,11 +41,11 @@ bool Schema::has_field(std::string_view name) const {
     return d_info.find(std::string(name)) != d_info.end();
 }
 
-FieldType Schema::get_type(std::string_view name) {
+FieldType Schema::get_type(std::string_view name) const {
     return d_info.find(std::string(name))->second.type();
 }
 
-int Schema::get_length(std::string_view name) {
+int Schema::get_length(std::string_view name) const {
     return d_info.find(std::string(name))->second.length();
 }
 

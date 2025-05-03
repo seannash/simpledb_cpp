@@ -52,14 +52,14 @@ Constant Term::equates_with_constant(std::string_view field) const {
     throw std::runtime_error("Term does not equate field with constant");
 }
 
-Constant Term::equates_with_field(std::string_view field) const {
+std::string Term::equates_with_field(std::string_view field) const {
     if (d_lhs->is_field_name() && d_lhs->as_field_name() == field && d_rhs->is_field_name()) {
-        return Constant(d_rhs->as_field_name());
+        return d_rhs->as_field_name();
     }
     if (d_rhs->is_field_name() && d_rhs->as_field_name() == field && d_lhs->is_field_name()) {
-        return Constant(d_lhs->as_field_name());
+        return d_lhs->as_field_name();
     }
-    throw std::runtime_error("Term does not equate field with another field");
+    return ""; // TODO How to represent null?
 }
 
 std::string Term::to_string() const {

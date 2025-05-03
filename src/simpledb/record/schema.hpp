@@ -17,12 +17,12 @@ public:
     void add_int_field(std::string_view name);
     void add_string_field(std::string_view name, int length);
     void add(std::string_view name, Schema schema);
-    void add_all(Schema& schema);
+    void add_all(const Schema& schema);
 
-    std::span<std::string> fields();
+    std::span<const std::string> fields() const;
     bool has_field(std::string_view name) const;
-    FieldType get_type(std::string_view name);
-    int get_length(std::string_view name);
+    FieldType get_type(std::string_view name) const;
+    int get_length(std::string_view name) const;
 
 private:
 

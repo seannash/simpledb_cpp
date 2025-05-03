@@ -10,8 +10,11 @@ namespace simpledb::query {
 
 class Constant {
 public:
+    Constant();
     Constant(int val);
     Constant(std::string val);
+
+    bool is_null() const;
 
     int as_int() const;
     std::string as_string() const;
@@ -22,6 +25,7 @@ public:
     std::string to_string() const;
     
 private:
+    bool d_is_null;
     simpledb::record::FieldType d_type;
     std::any d_val;
 };

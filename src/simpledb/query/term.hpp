@@ -21,7 +21,7 @@ public:
     bool applies_to(const simpledb::record::Schema& sch) const;
     int reduction_factor(Plan& plan) const;
     Constant equates_with_constant(std::string_view field) const;
-    Constant equates_with_field(std::string_view field) const;
+    std::string equates_with_field(std::string_view field) const;
     std::string to_string() const;
 
 private:

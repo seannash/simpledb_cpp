@@ -3,31 +3,43 @@
 
 namespace simpledb::query {
 
+Constant::Constant()
+: d_is_null(true)
+, d_type()
+, d_val(nullptr) {
+}
+
+
 Constant::Constant(int val)
-    : d_type(simpledb::record::FieldType::INT)
-    , d_val(val) {
+: d_is_null(false)
+, d_type(simpledb::record::FieldType::INT)
+, d_val(val) {
 }
 
 Constant::Constant(std::string val)
-    : d_type(simpledb::record::FieldType::STRING)
-    , d_val(std::move(val)) {
+: d_is_null(false)
+, d_type(simpledb::record::FieldType::STRING)
+, d_val(std::move(val)) {
 }
 
 int Constant::as_int() const {
-    if (d_type != simpledb::record::FieldType::INT) {
+    if (!d_is_null && d_type != simpledb::record::FieldType::INT) {
         throw std::runtime_error("Constant is not an integer");
     }
     return std::any_cast<int>(d_val);
 }
 
 std::string Constant::as_string() const {
-    if (d_type != simpledb::record::FieldType::STRING) {
+    if (!d_is_null && d_type != simpledb::record::FieldType::STRING) {
         throw std::runtime_error("Constant is not a string");
     }
     return std::any_cast<std::string>(d_val);
 }
 
 std::string Constant::to_string() const {
+    if (d_is_null) {
+        return "null";
+    }
     if (d_type == simpledb::record::FieldType::INT) {
         return std::to_string(as_int());
     } else {
@@ -36,7 +48,7 @@ std::string Constant::to_string() const {
 }
 
 std::strong_ordering Constant::operator<=>(const Constant& other) const {
-    if (d_type != other.d_type) {
+    if (d_is_null || other.d_is_null || d_type != other.d_type) {
         throw std::runtime_error("Cannot compare constants of different types");
     }
     if (d_type == simpledb::record::FieldType::INT) {

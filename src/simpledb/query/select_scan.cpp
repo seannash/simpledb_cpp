@@ -3,9 +3,9 @@
 
 namespace simpledb::query {
 
-SelectScan::SelectScan(std::shared_ptr<Scan> scan, Predicate pred)
-    : d_scan(scan)
-    , d_predicate(std::make_shared<Predicate>(pred)) {
+SelectScan::SelectScan(std::shared_ptr<Scan> scan, std::shared_ptr<Predicate> pred)
+: d_scan(scan)
+, d_predicate(pred) {
 }
 
 void SelectScan::before_first() {
@@ -14,7 +14,7 @@ void SelectScan::before_first() {
 
 bool SelectScan::next() {
     while (d_scan->next()) {
-        if (d_predicate->is_satisfied(d_scan)) {
+        if (d_predicate->is_satisfied(*d_scan)) {
             return true;
         }
     }

@@ -3,20 +3,15 @@
 #include "simpledb/query/scan.hpp"
 #include "simpledb/query/update_scan.hpp"
 #include "simpledb/record/rid.hpp"
+#include "simpledb/query/predicate.hpp"
 
 #include <memory>
-
-class Predicate {
-public:
-    // Predicate class definition will be implemented later
-    bool is_satisfied(std::shared_ptr<simpledb::query::Scan> s) const;
-};
 
 namespace simpledb::query {
 
 class SelectScan : public UpdateScan {
 public:
-    SelectScan(std::shared_ptr<Scan> scan, Predicate pred);
+    SelectScan(std::shared_ptr<Scan> scan, std::shared_ptr<Predicate> pred);
 
     // Scan interface methods
     void before_first() override;

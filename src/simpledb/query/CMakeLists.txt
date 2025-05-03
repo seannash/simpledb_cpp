@@ -8,6 +8,7 @@ add_library(query STATIC
     term.cpp
     constant.cpp
     expression.cpp
+    predicate.cpp
 )
 
 target_include_directories(query

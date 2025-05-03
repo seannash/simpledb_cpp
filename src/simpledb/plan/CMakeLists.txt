@@ -1,5 +1,6 @@
 add_library(plan
     plan.cpp
+    table_plan.cpp
 )
 
 target_include_directories(plan
@@ -13,4 +14,6 @@ target_link_libraries(plan
     PUBLIC
         query
         record
+        metadata
+        tx
 )

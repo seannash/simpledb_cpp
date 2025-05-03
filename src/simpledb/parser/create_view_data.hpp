@@ -7,15 +7,15 @@ namespace simpledb::parse {
 
 class CreateViewData {
 public:
-    CreateViewData(std::string view_name, QueryData query_data);
+    CreateViewData(std::string view_name, QueryData view_def);
     ~CreateViewData() = default;
 
     const std::string& view_name() const;
-    const QueryData& query_data() const;
+    const std::string& view_def() const;
 
 private:
     std::string d_view_name;
-    QueryData d_query_data;
+    std::string d_view_def;
 };
 
 } // namespace simpledb::parse 

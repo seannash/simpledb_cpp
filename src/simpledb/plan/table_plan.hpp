@@ -14,7 +14,9 @@ namespace simpledb::plan {
 
 class TablePlan: public Plan {
 public:
-    TablePlan(std::shared_ptr<simpledb::tx::Transaction> tx, std::string_view table_name, std::shared_ptr<simpledb::metadata::MetadataManager> metadata_manager);
+    TablePlan(std::shared_ptr<simpledb::tx::Transaction> tx,
+              std::string_view table_name,
+              std::shared_ptr<simpledb::metadata::MetadataManager> metadata_manager);
     ~TablePlan();
 
     std::shared_ptr<simpledb::query::Scan> open() override;

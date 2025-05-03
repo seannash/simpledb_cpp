@@ -12,11 +12,11 @@ public:
     ~CreateTableData() = default;
 
     const std::string& table_name() const;
-    const simpledb::record::Schema& schema() const;
+    const simpledb::record::Schema& new_schema() const;
 
 private:
     std::string d_table_name;
-    simpledb::record::Schema d_schema;
+    simpledb::record::Schema d_new_schema;
 };
 
 } // namespace simpledb::parse 

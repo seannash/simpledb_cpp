@@ -7,6 +7,8 @@ add_library(plan
     basic_query_planner.cpp
     better_query_planner.cpp
     query_planner.cpp
+    update_planner.cpp
+    basic_update_planner.cpp
 )
 
 target_include_directories(plan

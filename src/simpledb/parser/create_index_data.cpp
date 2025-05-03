@@ -2,10 +2,10 @@
 
 namespace simpledb::parse {
 
-CreateIndexData::CreateIndexData(std::string index_name, std::string table_name, std::vector<std::string> fields)
+CreateIndexData::CreateIndexData(std::string index_name, std::string table_name, std::string field_name)
     : d_index_name(std::move(index_name))
     , d_table_name(std::move(table_name))
-    , d_fields(std::move(fields))
+    , d_field_name(std::move(field_name))
 {}
 
 const std::string& CreateIndexData::index_name() const {
@@ -16,8 +16,8 @@ const std::string& CreateIndexData::table_name() const {
     return d_table_name;
 }
 
-const std::vector<std::string>& CreateIndexData::fields() const {
-    return d_fields;
+const std::string& CreateIndexData::field_name() const {
+    return d_field_name;
 }
 
 } // namespace simpledb::parse 

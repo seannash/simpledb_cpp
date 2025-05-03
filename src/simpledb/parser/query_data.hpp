@@ -16,6 +16,8 @@ public:
     const std::vector<std::string>& table_list() const;
     const std::shared_ptr<simpledb::query::Predicate>& predicate() const;
 
+    std::string to_string() const;
+
 private:
     std::vector<std::string> d_select_list;
     std::vector<std::string> d_table_list;

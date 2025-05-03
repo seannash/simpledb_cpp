@@ -106,12 +106,16 @@ InsertData Parser::parse_insert() {
 ModifyData Parser::parse_modify() {
     d_lex.eatKeyword("update");
     auto table_name = d_lex.eatId();
-    d_lex.eatDelim('(');
-    auto fields = parse_field_list();
-    d_lex.eatDelim(')');
-    d_lex.eatKeyword("values");
-    auto values = parse_const_list();
-    return ModifyData(table_name, fields, values);
+    d_lex.eatKeyword("set");
+    auto target_field = parse_field();
+    d_lex.eatDelim('=');
+    auto new_value = parse_expression();
+    std::shared_ptr<simpledb::query::Predicate> predicate {};
+    if (d_lex.matchKeyword("where")) {
+        d_lex.eatKeyword("where");
+        predicate = parse_predicate();
+    }
+    return ModifyData(table_name, target_field, new_value, predicate);
 }
 
 CreateViewData Parser::parse_create_view() {
@@ -128,9 +132,9 @@ CreateIndexData Parser::parse_create_index() {
     d_lex.eatKeyword("on");
     auto table_name = d_lex.eatId();
     d_lex.eatDelim('(');
-    auto fields = parse_field_list();
+    auto field_name = parse_field();
     d_lex.eatDelim(')');
-    return CreateIndexData(index_name, table_name, fields);
+    return CreateIndexData(index_name, table_name, field_name);
 }
 
 CreateTableData Parser::parse_create_table() {

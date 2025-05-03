@@ -2,17 +2,17 @@
 
 namespace simpledb::parse {
 
-CreateViewData::CreateViewData(std::string view_name, QueryData query_data)
+CreateViewData::CreateViewData(std::string view_name, QueryData view_def)
     : d_view_name(std::move(view_name))
-    , d_query_data(std::move(query_data))
+    , d_view_def(view_def.to_string())
 {}
 
 const std::string& CreateViewData::view_name() const {
     return d_view_name;
 }
 
-const QueryData& CreateViewData::query_data() const {
-    return d_query_data;
+const std::string& CreateViewData::view_def() const {
+    return d_view_def;
 }
 
 } // namespace simpledb::parse 

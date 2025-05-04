@@ -18,7 +18,7 @@ target_include_directories(simpledb_jdbc
 target_link_libraries(simpledb_jdbc
     PUBLIC
         jdbc
-        server
+        simpledb_server
 )
 
 add_executable(embedded_test embedded/embeded_test.cpp)

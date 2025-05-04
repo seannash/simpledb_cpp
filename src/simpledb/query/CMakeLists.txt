@@ -1,5 +1,5 @@
 
-add_library(query STATIC
+add_library(simpledb_query STATIC
     scan.cpp
     update_scan.cpp
     select_scan.cpp
@@ -11,14 +11,14 @@ add_library(query STATIC
     predicate.cpp
 )
 
-target_include_directories(query
+target_include_directories(simpledb_query
     PUBLIC
         ${CMAKE_SOURCE_DIR}/src
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-target_link_libraries(query
+target_link_libraries(simpledb_query
     PUBLIC
 )
 
@@ -32,7 +32,7 @@ target_include_directories(query_unit_tests
 )
 target_link_libraries(query_unit_tests
     PUBLIC
-        query
+        simpledb_query
         Catch2::Catch2WithMain
 )
 

@@ -1,5 +1,5 @@
 # Create file system library
-add_library(file
+add_library(simpledb_file
     page.cpp
     buffer_wrapper.cpp
     file_manager.cpp  
@@ -8,7 +8,7 @@ add_library(file
 )
 
 # Set include directories
-target_include_directories(file
+target_include_directories(simpledb_file
     PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/..
     PRIVATE
@@ -16,25 +16,21 @@ target_include_directories(file
 )
 
 # Set properties
-set_target_properties(file PROPERTIES
+set_target_properties(simpledb_file PROPERTIES
     VERSION ${PROJECT_VERSION}
     SOVERSION ${PROJECT_VERSION_MAJOR}
     POSITION_INDEPENDENT_CODE ON
     OUTPUT_NAME "file"
 )
 
-# Enable C++20 features
-target_compile_features(file PRIVATE cxx_std_20)
-
-# Add test executables
 add_executable(page_test page.t.cpp)
-target_link_libraries(page_test PRIVATE file Catch2::Catch2WithMain)
+target_link_libraries(page_test PRIVATE simpledb_file Catch2::Catch2WithMain)
 
 add_executable(block_id_test block_id.t.cpp)
-target_link_libraries(block_id_test PRIVATE file Catch2::Catch2WithMain)
+target_link_libraries(block_id_test PRIVATE simpledb_file Catch2::Catch2WithMain)
 
 add_executable(file_manager_test file_manager.t.cpp)
-target_link_libraries(file_manager_test PRIVATE file Catch2::Catch2WithMain)
+target_link_libraries(file_manager_test PRIVATE simpledb_file Catch2::Catch2WithMain)
 
 # Register test with CTest
 include(CTest)

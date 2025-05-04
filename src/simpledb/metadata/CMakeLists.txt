@@ -1,4 +1,4 @@
-add_library(metadata
+add_library(simpledb_metadata
     table_manager.cpp
     view_manager.cpp
     stat_manager.cpp
@@ -8,17 +8,17 @@ add_library(metadata
     metadata_manager.cpp
 )
 
-target_include_directories(metadata
+target_include_directories(simpledb_metadata
     PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}
     PRIVATE
         ${CMAKE_SOURCE_DIR}/src
 )
 
-target_link_libraries(metadata
+target_link_libraries(simpledb_metadata
     PUBLIC
-        record
-        tx
+        simpledb_record
+        simpledb_tx
 )
 
 add_executable(table_manager_test
@@ -30,8 +30,8 @@ target_include_directories(table_manager_test
 )
 target_link_libraries(table_manager_test
     PRIVATE
-        metadata
-        server
+        simpledb_metadata
+        simpledb_server
 )
 
 add_executable(catalog_test
@@ -43,7 +43,7 @@ target_include_directories(catalog_test
 )
 target_link_libraries(catalog_test
     PRIVATE
-        server
+        simpledb_server
 )
 
 add_executable(metadata_manager_test
@@ -55,5 +55,5 @@ target_include_directories(metadata_manager_test
 )
 target_link_libraries(metadata_manager_test
     PRIVATE
-        server
+        simpledb_server
 )

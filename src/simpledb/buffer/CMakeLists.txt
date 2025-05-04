@@ -1,17 +1,17 @@
-add_library(buffer
+add_library(simpledb_buffer
     buffer.cpp
     buffer_manager.cpp
 )
 
-target_include_directories(buffer
+target_include_directories(simpledb_buffer
     PUBLIC
         ${CMAKE_SOURCE_DIR}/src
 )
 
-target_link_libraries(buffer
+target_link_libraries(simpledb_buffer
     PUBLIC
-        file
-        log
+        simpledb_file
+        simpledb_log
 )
 
 # Add test executable
@@ -24,5 +24,5 @@ target_include_directories(buffer_test
 )
 target_link_libraries(buffer_test
     PRIVATE
-        buffer
+        simpledb_buffer
 )

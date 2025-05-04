@@ -1,4 +1,4 @@
-add_library(plan
+add_library(simpledb_plan
     plan.cpp
     table_plan.cpp
     select_plan.cpp
@@ -12,20 +12,20 @@ add_library(plan
     planner.cpp
 )
 
-target_include_directories(plan
+target_include_directories(simpledb_plan
     PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}
     PRIVATE
         ${CMAKE_SOURCE_DIR}/src
 )
 
-target_link_libraries(plan
+target_link_libraries(simpledb_plan
     PUBLIC
-        query
-        record
-        metadata
-        tx
-        parser
+        simpledb_query
+        simpledb_record
+        simpledb_metadata
+        simpledb_tx
+        simpledb_parser
 )
 
 add_executable(planner_test
@@ -39,5 +39,5 @@ target_include_directories(planner_test
 )
 target_link_libraries(planner_test
     PUBLIC
-        server
+        simpledb_server
 )

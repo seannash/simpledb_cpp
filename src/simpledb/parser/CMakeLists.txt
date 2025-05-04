@@ -1,4 +1,4 @@
-add_library(parser
+add_library(simpledb_parser
     lexer.cpp
     parser.cpp
     insert_data.cpp
@@ -9,12 +9,12 @@ add_library(parser
     query_data.cpp
     create_view_data.cpp
 )
-target_include_directories(parser
+target_include_directories(simpledb_parser
     PUBLIC
         ${CMAKE_SOURCE_DIR}/src
         ${CMAKE_SOURCE_DIR}/src/simpledb/parser
 )
-target_link_libraries(parser
+target_link_libraries(simpledb_parser
     PUBLIC
 )
 
@@ -28,7 +28,7 @@ target_include_directories(parser_unit_tests
 )
 target_link_libraries(parser_unit_tests
     PUBLIC
-        parser
+        simpledb_parser
         Catch2::Catch2WithMain
 )
 

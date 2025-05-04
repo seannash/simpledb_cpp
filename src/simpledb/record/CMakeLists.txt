@@ -1,4 +1,4 @@
-add_library(record
+add_library(simpledb_record
     schema.cpp
     layout.cpp
     record_page.cpp
@@ -6,17 +6,17 @@ add_library(record
     rid.cpp
 )
 
-target_include_directories(record
+target_include_directories(simpledb_record
     PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}
     PRIVATE
         ${CMAKE_SOURCE_DIR}/src
 )
 
-target_link_libraries(record
+target_link_libraries(simpledb_record
     PUBLIC 
-        tx 
-        file
+        simpledb_tx 
+        simpledb_file
 )
 
 add_executable(record_test
@@ -29,7 +29,7 @@ target_include_directories(record_test
         ${CMAKE_SOURCE_DIR}/src
 )
 target_link_libraries(record_test
-    server
+    simpledb_server
 )
 
 add_executable(table_scan_test
@@ -40,5 +40,5 @@ target_include_directories(table_scan_test
         ${CMAKE_SOURCE_DIR}/src
 )
 target_link_libraries(table_scan_test
-    server
+    simpledb_server
 )

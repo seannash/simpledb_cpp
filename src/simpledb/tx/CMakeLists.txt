@@ -1,4 +1,4 @@
-add_library(tx
+add_library(simpledb_tx
     transaction.cpp
     bufferlist.cpp
     recovery/recovery_manager.cpp
@@ -14,16 +14,16 @@ add_library(tx
     concurrency/concurrency_manager.cpp
 )
 
-target_include_directories(tx
+target_include_directories(simpledb_tx
     PUBLIC
         ${CMAKE_SOURCE_DIR}/src
 )
 
-target_link_libraries(tx
+target_link_libraries(simpledb_tx
     PUBLIC
-        file
-        log
-        buffer
+        simpledb_file
+        simpledb_log
+        simpledb_buffer
 )
 
 add_executable(tx_test
@@ -35,7 +35,7 @@ target_include_directories(tx_test
 )
 target_link_libraries(tx_test
     PRIVATE
-        server
+        simpledb_server
 )
 
 
@@ -48,5 +48,5 @@ target_include_directories(tx_test_small
 )
 target_link_libraries(tx_test_small
     PRIVATE
-        server
+        simpledb_server
 )

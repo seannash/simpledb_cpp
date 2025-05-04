@@ -1,6 +1,6 @@
 #pragma once
 
-#include "simpledb/record/field_type.hpp"
+#include "jdbc/column_types.hpp"
 
 #include <any>
 #include <string>
@@ -26,7 +26,7 @@ public:
     
 private:
     bool d_is_null;
-    simpledb::record::FieldType d_type;
+    ::jdbc::ColumnType d_type;
     std::any d_val;
 };
 

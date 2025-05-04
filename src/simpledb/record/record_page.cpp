@@ -42,7 +42,7 @@ void RecordPage::format() {
         auto sch = d_layout.schema();
         for (const auto& field : sch.fields()) {
             int pos = offset(slot) + d_layout.offset(field);
-            if (sch.get_type(field) == FieldType::INT) {
+            if (sch.get_type(field) == ::jdbc::ColumnType::INT) {
                 d_tx->set_int(d_blk, pos, 0, false);
             } else {
                 d_tx->set_string(d_blk, pos, "", false);

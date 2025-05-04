@@ -80,13 +80,13 @@ std::shared_ptr<simpledb::record::Layout> TableManager::get_layout(
    while (fcat_scan.next()) {
       if (fcat_scan.get_string("tblname") == table_name) {
          auto field = fcat_scan.get_string("fldname");
-         auto type = (simpledb::record::FieldType)fcat_scan.get_int("type");
+         auto type = (::jdbc::ColumnType)fcat_scan.get_int("type");
          auto length = fcat_scan.get_int("length");
          auto offset = fcat_scan.get_int("offset");
          offsets[field] = offset;
          schema->add_field(field, type, length);
          schema->add_field(fcat_scan.get_string("fldname"),
-                           (simpledb::record::FieldType)fcat_scan.get_int("type"),
+                           (::jdbc::ColumnType)fcat_scan.get_int("type"),
                            fcat_scan.get_int("length"));
       }
    }

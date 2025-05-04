@@ -5,7 +5,7 @@
 #include "simpledb/record/layout.hpp"
 #include "simpledb/record/record_page.hpp"
 #include "simpledb/record/schema.hpp"
-#include "simpledb/record/field_type.hpp"
+#include "jdbc/column_types.hpp"
 #include "simpledb/record/table_scan.hpp"
 namespace simpledb::metadata {
 
@@ -21,8 +21,8 @@ ViewManager::ViewManager(bool is_new,
 {
     if (is_new) {
         auto schema = std::make_shared<simpledb::record::Schema>();
-        schema->add_field("viewname", simpledb::record::FieldType::STRING, TableManager::MAX_NAME_LEN);
-        schema->add_field("viewdef", simpledb::record::FieldType::STRING, MAX_VIEW_DEF);
+        schema->add_field("viewname", ::jdbc::ColumnType::STRING, TableManager::MAX_NAME_LEN);
+        schema->add_field("viewdef", ::jdbc::ColumnType::STRING, MAX_VIEW_DEF);
         d_tbl_manager->create_table("viewcat", schema, tx);
     }
 }

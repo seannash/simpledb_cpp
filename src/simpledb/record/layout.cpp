@@ -1,6 +1,6 @@
 #include "simpledb/record/layout.hpp"
 #include "simpledb/record/schema.hpp"
-#include "simpledb/record/field_type.hpp"
+#include "jdbc/column_types.hpp"
 #include <stdexcept>
 
 namespace simpledb::record {
@@ -38,9 +38,9 @@ Schema& Layout::schema() {
 int Layout::length_in_bytes(std::string_view field) {
     auto type = d_schema.get_type(field);
     switch (type) {
-        case FieldType::INT:
+        case ::jdbc::ColumnType::INT:
             return sizeof(int);
-        case FieldType::STRING:
+        case ::jdbc::ColumnType::STRING:
             return d_schema.get_length(field)+sizeof(int);
     }
     throw std::runtime_error("Invalid type");

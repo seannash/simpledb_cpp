@@ -1,4 +1,3 @@
-add_subdirectory(jdbc) 
 add_subdirectory(file) 
 add_subdirectory(log) 
 add_subdirectory(buffer) 
@@ -9,5 +8,4 @@ add_subdirectory(query)
 add_subdirectory(parser)
 add_subdirectory(plan)
 add_subdirectory(server)
-
-
+add_subdirectory(jdbc) 

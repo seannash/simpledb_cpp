@@ -1,6 +1,6 @@
 #include "index_info.hpp"
 #include "simpledb/record/schema.hpp"
-
+#include "jdbc/column_types.hpp"
 
 namespace simpledb::metadata {
 
@@ -48,7 +48,7 @@ std::shared_ptr<simpledb::record::Layout> IndexInfo::create_index_layout() {
     auto schema = std::make_shared<simpledb::record::Schema>();
     schema->add_int_field("block");
     schema->add_int_field("id");
-    if (d_table_schema->get_type(d_field_name) == simpledb::record::FieldType::INT) {
+    if (d_table_schema->get_type(d_field_name) == ::jdbc::ColumnType::INT) {
         schema->add_int_field("dataval");
     } else {
         int field_len = d_table_schema->get_length(d_field_name);

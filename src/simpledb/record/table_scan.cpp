@@ -72,9 +72,9 @@ std::string TableScan::get_string(std::string_view field) {
 }
 
 simpledb::query::Constant TableScan::get_val(std::string_view field) {
-    if (d_layout->schema().get_type(field) == FieldType::INT) {
+    if (d_layout->schema().get_type(field) == ::jdbc::ColumnType::INT) {
         return simpledb::query::Constant(get_int(field));
-    } else if (d_layout->schema().get_type(field) == FieldType::STRING) {
+    } else if (d_layout->schema().get_type(field) == ::jdbc::ColumnType::STRING) {
         return simpledb::query::Constant(get_string(field));
     }
     throw std::runtime_error("Invalid field type");
@@ -89,9 +89,9 @@ void TableScan::set_string(std::string_view field, std::string_view value) {
 }
 
 void TableScan::set_val(std::string_view field, simpledb::query::Constant value) {
-    if (d_layout->schema().get_type(field) == FieldType::INT) {
+    if (d_layout->schema().get_type(field) == ::jdbc::ColumnType::INT) {
         set_int(field, value.as_int());
-    } else if (d_layout->schema().get_type(field) == FieldType::STRING) {
+    } else if (d_layout->schema().get_type(field) == ::jdbc::ColumnType::STRING) {
         set_string(field, value.as_string());
     }
 }

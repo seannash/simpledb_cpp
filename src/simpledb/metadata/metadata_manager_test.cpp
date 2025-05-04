@@ -32,7 +32,7 @@ int main() {
     std::cout << "Its fields are:" << std::endl;
     for (const auto& fldname : sch2.fields()) {
         std::string type;
-        if (sch2.get_type(fldname) == FieldType::INT)
+        if (sch2.get_type(fldname) == ::jdbc::ColumnType::INT)
             type = "int";
         else {
             int strlen = sch2.get_length(fldname);

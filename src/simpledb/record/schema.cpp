@@ -6,7 +6,7 @@ namespace simpledb::record {
 Schema::Schema(): d_info() {
 }
 
-void Schema::add_field(std::string_view name, FieldType type, int length) {
+void Schema::add_field(std::string_view name, ::jdbc::ColumnType type, int length) {
     d_info.emplace(std::piecewise_construct,
                    std::forward_as_tuple(std::string(name)),
                    std::forward_as_tuple(type, length));
@@ -14,11 +14,11 @@ void Schema::add_field(std::string_view name, FieldType type, int length) {
 }
 
 void Schema::add_int_field(std::string_view name) {
-    add_field(name, FieldType::INT, sizeof(int));
+    add_field(name, ::jdbc::ColumnType::INT, sizeof(int));
 }
 
 void Schema::add_string_field(std::string_view name, int length) {
-    add_field(name, FieldType::STRING, length);
+    add_field(name, ::jdbc::ColumnType::STRING, length);
 }
 
 void Schema::add(std::string_view name, Schema schema) {
@@ -41,7 +41,7 @@ bool Schema::has_field(std::string_view name) const {
     return d_info.find(std::string(name)) != d_info.end();
 }
 
-FieldType Schema::get_type(std::string_view name) const {
+::jdbc::ColumnType Schema::get_type(std::string_view name) const {
     return d_info.find(std::string(name))->second.type();
 }
 

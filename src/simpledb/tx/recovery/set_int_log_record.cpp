@@ -74,7 +74,6 @@ int SetIntLogRecord::write_to_log(std::shared_ptr<simpledb::log::LogManager> lm,
     bw.setInt(bpos, blk.number());
     bw.setInt(opos, offset);
     bw.setInt(vpos, val);
-    std::cout << "<SET_INT " << txnum << " " << blk.fileName() << " " << blk.number() << " " << offset << " " << val << ">" << std::endl;
     return lm->append(buf);
 }
 

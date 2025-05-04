@@ -22,6 +22,10 @@ Constant::Constant(std::string val)
 , d_val(std::move(val)) {
 }
 
+bool Constant::is_null() const {
+    return d_is_null;
+}
+
 int Constant::as_int() const {
     if (!d_is_null && d_type != simpledb::record::FieldType::INT) {
         throw std::runtime_error("Constant is not an integer");

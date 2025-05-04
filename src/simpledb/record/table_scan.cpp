@@ -25,7 +25,7 @@ void TableScan::close() {
 }
 
 bool TableScan::has_field(std::string_view field) {
-    return false;
+    return d_layout->schema().has_field(field);
 }
 
 void TableScan::before_first() {

@@ -18,4 +18,5 @@ target_link_libraries(server
         record
         metadata
         query
+        plan
 )

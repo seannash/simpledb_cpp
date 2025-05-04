@@ -33,7 +33,6 @@ int StartLogRecord::write_to_log(std::shared_ptr<simpledb::log::LogManager> lm, 
     std::vector<char> buf(sizeof(int)*2, 0);
     *reinterpret_cast<int*>(buf.data()) = START;
     *reinterpret_cast<int*>(buf.data() + sizeof(int)) = txnum;
-    std::cout << "<START " << txnum << ">" << std::endl;
     return lm->append(buf);
 }
 

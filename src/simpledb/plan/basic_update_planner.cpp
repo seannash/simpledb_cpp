@@ -19,7 +19,7 @@ int BasicUpdatePlanner::executeInsert(const parse::InsertData& data, std::shared
     us->insert();
     auto iter = data.values().begin();
     for (const auto& field : data.fields()) {
-        auto val = *iter;
+        auto val = *iter++;
         us->set_val(field, val);
     }
     us->close();

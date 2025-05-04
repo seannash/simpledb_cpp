@@ -9,6 +9,7 @@ add_library(plan
     query_planner.cpp
     update_planner.cpp
     basic_update_planner.cpp
+    planner.cpp
 )
 
 target_include_directories(plan
@@ -25,4 +26,18 @@ target_link_libraries(plan
         metadata
         tx
         parser
+)
+
+add_executable(planner_test
+    planner_test.cpp
+)
+target_include_directories(planner_test
+    PUBLIC
+        ${CMAKE_SOURCE_DIR}/src
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}
+)
+target_link_libraries(planner_test
+    PUBLIC
+        server
 )

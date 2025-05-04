@@ -32,7 +32,6 @@ int RollbackLogRecord::write_to_log(std::shared_ptr<simpledb::log::LogManager> l
     std::vector<char> buf(sizeof(int)*2, 0);
     *reinterpret_cast<int*>(buf.data()) = ROLLBACK;
     *reinterpret_cast<int*>(buf.data() + sizeof(int)) = txnum;
-    std::cout << "<ROLLBACK " << txnum << ">" << std::endl;
     return lm->append(buf);
 }
 

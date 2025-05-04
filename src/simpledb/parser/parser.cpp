@@ -1,6 +1,8 @@
 #include "simpledb/parser/parser.hpp"
 #include <stdexcept>
 
+#include <iostream>
+
 namespace simpledb::parse {
 
 Parser::Parser(std::string_view line)
@@ -46,10 +48,11 @@ QueryData Parser::query() {
     auto select_list = parse_select_list();
     d_lex.eatKeyword("from");
     auto table_list = parse_table_list();
-    std::shared_ptr<simpledb::query::Predicate> pred {};
+    auto pred = std::make_shared<simpledb::query::Predicate>();
     if (d_lex.matchKeyword("where")) {
         d_lex.eatKeyword("where");
         pred = parse_predicate();
+        std::cout << "pred: " << pred->to_string() << std::endl;
     }
     return QueryData(select_list, table_list, pred);
 }

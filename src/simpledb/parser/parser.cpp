@@ -52,7 +52,6 @@ QueryData Parser::query() {
     if (d_lex.matchKeyword("where")) {
         d_lex.eatKeyword("where");
         pred = parse_predicate();
-        std::cout << "pred: " << pred->to_string() << std::endl;
     }
     return QueryData(select_list, table_list, pred);
 }

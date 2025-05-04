@@ -65,6 +65,7 @@ std::shared_ptr<simpledb::record::Layout> TableManager::get_layout(
     int size = -1;
     simpledb::record::TableScan tcat_scan(tx, "tblcat", d_tcat_layout);
     while (tcat_scan.next()) {
+        std::cout << "tcat_scan.get_string(\"tblname\"): " << tcat_scan.get_string("tblname") << std::endl;
         if (tcat_scan.get_string("tblname") == table_name) {
             size = tcat_scan.get_int("slotsize");
             break;

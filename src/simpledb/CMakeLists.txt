@@ -25,4 +25,9 @@ add_library(simpledb STATIC
     $<TARGET_OBJECTS:simpledb_jdbc>
 )
 
+target_include_directories(simpledb
+    PUBLIC
+        ${CMAKE_SOURCE_DIR}/src
+)
+
 

@@ -39,7 +39,9 @@ simpledb::query::Constant ProjectScan::get_val(std::string_view field) {
 }
 
 bool ProjectScan::has_field(std::string_view field) {
-    return std::find(d_fields.begin(), d_fields.end(), std::string(field)) != d_fields.end();
+    std::string lower_field = std::string(field);
+    std::transform(lower_field.begin(), lower_field.end(), lower_field.begin(), ::tolower);
+    return std::find(d_fields.begin(), d_fields.end(), lower_field) != d_fields.end();
 }
 
 void ProjectScan::close() {

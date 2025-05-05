@@ -1,6 +1,7 @@
 add_library(simpledb_index
     Index.cpp
     HashIndex/HashIndex.cpp
+    btree/BTPage.cpp
 )
 
 target_include_directories(simpledb_index

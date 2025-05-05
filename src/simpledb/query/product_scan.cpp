@@ -6,7 +6,9 @@ namespace simpledb::query {
 ProductScan::ProductScan(std::shared_ptr<Scan> left_scan, std::shared_ptr<Scan> right_scan)
     : d_left_scan(left_scan)
     , d_right_scan(right_scan)
-{}
+{
+    before_first();
+}
 
 void ProductScan::before_first() {
     d_left_scan->before_first();

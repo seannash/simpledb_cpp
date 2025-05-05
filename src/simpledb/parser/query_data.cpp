@@ -29,7 +29,7 @@ std::string QueryData::to_string() const {
     while (++field_iter != d_select_list.end()) {
         ss << ", " << *field_iter;
     }
-    ss << "FROM ";
+    ss << " FROM ";
     auto table_iter = d_table_list.begin();
     ss << *table_iter;
     while (++table_iter != d_table_list.end()) {

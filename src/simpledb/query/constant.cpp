@@ -1,6 +1,6 @@
 #include "simpledb/query/constant.hpp"
 #include <stdexcept>
-
+#include <functional>
 namespace simpledb::query {
 
 Constant::Constant()
@@ -66,9 +66,27 @@ bool Constant::operator==(const Constant& other) const {
     return *this <=> other == 0;
 }
 
+int Constant::hashCode() const {
+    if (d_is_null) {
+        return 0;
+
+    }
+    // FXIME Make std::hasher members
+    switch (d_type) {
+        case ::jdbc::ColumnType::INT:
+            return std::hash<int>{}(as_int());
+        case ::jdbc::ColumnType::STRING:
+            return std::hash<std::string>{}(as_string());
+        default:
+            throw std::runtime_error("Unsupported constant type");
+    }
+    return 0;
+}
+
 std::ostream& operator<<(std::ostream& os, const Constant& c) {
     os << c.to_string();
     return os;
 }
+
 
 } // namespace simpledb::query

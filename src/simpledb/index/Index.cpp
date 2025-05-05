@@ -1,4 +1,4 @@
-#include "simpledb/index/index.hpp"
+#include "simpledb/index/Index.hpp"
 
 namespace simpledb::index {
 

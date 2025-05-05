@@ -23,6 +23,8 @@ public:
     bool operator==(const Constant& other) const;
 
     std::string to_string() const;
+
+    int hashCode() const;
     
 private:
     bool d_is_null;

@@ -1,5 +1,6 @@
 add_library(simpledb_index
-    Index.hpp
+    Index.cpp
+    HashIndex/HashIndex.cpp
 )
 
 target_include_directories(simpledb_index

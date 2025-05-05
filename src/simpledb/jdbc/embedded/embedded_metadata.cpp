@@ -20,21 +20,21 @@ std::string EmbeddedMetadata::getColumnName(int columnIndex) const {
 
 ::jdbc::ColumnType EmbeddedMetadata::getColumnType(int columnIndex) const {
     std::string fldname = getColumnName(columnIndex);
-    return d_schema.type(fldname);
+    return d_schema.get_type(fldname);
 }
 
 std::string EmbeddedMetadata::getColumnTypeName(int columnIndex) const {
-    if (columnIndex < 1 || columnIndex > static_cast<int>(d_columnTypeNames.size())) {
+    if (columnIndex < 1 || columnIndex > static_cast<int>(d_schema.fields().size())) {
         throw ::jdbc::SQLException("Invalid column index");
     }
-    return d_columnTypeNames[columnIndex - 1];
+    return d_schema.fields()[columnIndex - 1];
 }
 
 int EmbeddedMetadata::getColumnDisplaySize(int columnIndex) const {
     std::string fldname = getColumnName(columnIndex);
     auto fldtype = d_schema.get_type(fldname);
     auto fldlength = (fldtype == ::jdbc::ColumnType::INT) ? 6 : d_schema.get_length(fldname);
-    return std::max(fldname.length(), fldlength);
+    return std::max((int)fldname.length(), fldlength);
 }
 
 } // namespace simpledb::jdbc::embedded 

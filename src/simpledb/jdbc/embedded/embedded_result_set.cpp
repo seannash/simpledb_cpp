@@ -1,5 +1,6 @@
 #include "embedded_result_set.hpp"
 #include "jdbc/sql_exception.hpp"
+#include "embedded_metadata.hpp"
 
 namespace simpledb::jdbc::embedded {
 
@@ -10,7 +11,7 @@ EmbeddedResultSet::EmbeddedResultSet(
     , d_scan(plan->open())
     , d_schema(plan->schema())
     , d_conn(conn)
-    , d_meta_data() {
+    , d_meta_data(std::make_shared<EmbeddedMetadata>(plan->schema())) {
 }
 
 bool EmbeddedResultSet::next() {

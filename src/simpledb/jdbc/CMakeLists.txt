@@ -7,6 +7,7 @@ add_library(simpledb_jdbc STATIC
     embedded/embedded_connection.cpp
     embedded/embedded_statement.cpp
     embedded/embedded_result_set.cpp
+    embedded/embedded_metadata.cpp
     metadata_adapter.cpp
 )
 target_include_directories(simpledb_jdbc

@@ -66,7 +66,7 @@ void Transaction::set_int(const simpledb::file::BlockId& blk, int offset, int va
     }
     auto& page = buffer->contents();
     page.setInt(offset, val);
-    buffer->set_modified(true, lsn);
+    buffer->set_modified(d_txnum, lsn);
 }
 
 void Transaction::set_string(const simpledb::file::BlockId& blk, int offset, const std::string& val, bool ok_to_log) {
@@ -78,7 +78,7 @@ void Transaction::set_string(const simpledb::file::BlockId& blk, int offset, con
     }
     auto& page = buffer->contents();
     page.setString(offset, val);
-    buffer->set_modified(true, lsn);
+    buffer->set_modified(d_txnum, lsn);
 }
 
 int Transaction::available_buffers() {

@@ -27,7 +27,7 @@ public:
 
 private:
     std::shared_ptr<simpledb::tx::Transaction> d_tx;
-    std::string_view d_table_name;
+    std::string d_table_name;
     std::shared_ptr<record::Layout> d_layout;
     metadata::StatInfo d_stat_info;
 };

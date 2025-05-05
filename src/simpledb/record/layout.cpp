@@ -3,6 +3,8 @@
 #include "jdbc/column_types.hpp"
 #include <stdexcept>
 
+#include <algorithm>
+
 namespace simpledb::record {
 
 Layout::Layout(Schema schema):
@@ -28,7 +30,10 @@ int Layout::slot_size() {
 }
 
 int Layout::offset(std::string_view field) {
-    return d_offsets[std::string(field)];
+    // FIXME: Lower only once
+    std::string lower_field = std::string(field);
+    std::transform(lower_field.begin(), lower_field.end(), lower_field.begin(), ::tolower);
+    return d_offsets.at(lower_field);
 }
 
 Schema& Layout::schema() {

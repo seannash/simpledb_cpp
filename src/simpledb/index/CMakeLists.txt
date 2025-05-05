@@ -13,7 +13,6 @@ target_link_libraries(simpledb_index
         simpledb_query
 )
 
-##[[
 add_executable(index_retrieval_test
     IndexRetrievalTest.cpp
 )
@@ -22,4 +21,12 @@ target_link_libraries(index_retrieval_test
     PRIVATE
         simpledb_server
 )
-#]]
+
+add_executable(index_update_test
+    IndexUpdateTest.cpp
+)
+
+target_link_libraries(index_update_test
+    PRIVATE
+        simpledb_server
+)

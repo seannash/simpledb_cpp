@@ -1,5 +1,7 @@
 #include "simpledb/record/schema.hpp"
 #include <span>
+#include <algorithm>
+
 
 namespace simpledb::record {
 
@@ -38,7 +40,10 @@ std::span<const std::string> Schema::fields() const {
 }
 
 bool Schema::has_field(std::string_view name) const {
-    return d_info.find(std::string(name)) != d_info.end();
+    // FIXME: Lower only once
+    std::string lower_name = std::string(name);
+    std::transform(lower_name.begin(), lower_name.end(), lower_name.begin(), ::tolower);
+    return d_info.find(lower_name) != d_info.end();
 }
 
 ::jdbc::ColumnType Schema::get_type(std::string_view name) const {

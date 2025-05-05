@@ -28,28 +28,17 @@ public:
 
     int findSlotBefore(const simpledb::query::Constant& searchkey);
 
-
     void close();
-
-
     bool isFull() const;
-
     simpledb::file::BlockId split(int splitpos, int flag);
-
     simpledb::query::Constant getDataVal(int slot) const;
-
     int getFlag() const;
-
     void setFlag(int val);
-
     simpledb::file::BlockId appendNew(int flag);
-
     void format(const simpledb::file::BlockId& blk, int flag);
-
     // Methods called only by BTreeDir
     int getChildNum(int slot) const;
     void insertDir(int slot, const simpledb::query::Constant& val, int blknum);
-
     // Methods called only by BTreeLeaf
     simpledb::record::RID getDataRid(int slot) const;
     void insertLeaf(int slot, const simpledb::query::Constant& val, const simpledb::record::RID& rid);

@@ -5,6 +5,7 @@ add_library(simpledb_index
     btree/BTreeLeaf.cpp
     btree/BTreeDir.cpp
     btree/DirEntry.cpp
+    btree/BTreeIndex.cpp
 )
 
 target_include_directories(simpledb_index

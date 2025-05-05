@@ -77,11 +77,15 @@ std::shared_ptr<std::fstream> FileManager::getFile(std::string fileName) {
         return iter->second;
     }
     auto full_file_name = d_dirname + "/" + fileName;
-    auto file = std::make_shared<std::fstream>(full_file_name, std::fstream::in | std::fstream::out | std::fstream::trunc );
+    if (!std::filesystem::exists(full_file_name)) {
+        std::ofstream file(full_file_name);
+        file.close();
+    }
+    auto file = std::make_shared<std::fstream>(full_file_name, std::fstream::in | std::fstream::out);
     if (!file->good()) {
         throw std::runtime_error("FileManager::getFile: file is not good");
     }
-    d_openFiles.emplace(fileName, file);
+    d_openFiles.insert({fileName, file});
     return file;
 }
 

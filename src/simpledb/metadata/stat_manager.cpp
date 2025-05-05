@@ -38,13 +38,8 @@ void StatManager::refresh_stats(std::shared_ptr<simpledb::tx::Transaction> tx) {
     while (tcat.next()) {
         std::string tblname = tcat.get_string("tblname");
         auto layout = d_tbl_manager->get_layout(tblname, tx);
-        simpledb::record::TableScan tbl(tx, tblname, layout);
-        while (tbl.next()) {
-            std::string fldname = tbl.get_string("fldname");
-            auto layout = d_tbl_manager->get_layout(tblname, tx);
-            StatInfo si = calculate_stats(tblname, layout, tx);
-            d_stats.emplace(tblname, si);
-        }
+        auto si = calculate_stats(tblname, layout, tx);
+        d_stats.emplace(tblname, si);
     }
     tcat.close();
 }

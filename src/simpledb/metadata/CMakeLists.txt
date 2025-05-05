@@ -17,6 +17,7 @@ target_include_directories(simpledb_metadata
 
 target_link_libraries(simpledb_metadata
     PUBLIC
+        simpledb_index
         simpledb_record
         simpledb_tx
 )

@@ -1,16 +1,9 @@
 #include "index_info.hpp"
 #include "simpledb/record/schema.hpp"
+#include "simpledb/index/Index.hpp"
 #include "jdbc/column_types.hpp"
 
 namespace simpledb::metadata {
-
-Index::Index(std::shared_ptr<simpledb::tx::Transaction> tx, std::string_view index_name, std::shared_ptr<simpledb::record::Layout> index_layout)
-{}
-
-int Index::search_cost(int x, int y) {
-    return 0;
-}
-
 
 IndexInfo::IndexInfo(
     std::string_view iname,
@@ -29,7 +22,9 @@ IndexInfo::IndexInfo(
 int IndexInfo::blocks_accessed() const {
     int rpb = d_tx->block_size() / d_index_layout->slot_size();
     int num_blocks = d_stat_info.records_output() / rpb;
-    return Index::search_cost(num_blocks, rpb);
+    // TODO: This depends on the index type and is codes to a static function in the index subclass
+    // https://github.com/seannash/sciore-simpledb-3.4/blob/473a93d5bda1d8eac85491d52656c5633cbc60a8/SimpleDB_3.4/simpledb/metadata/IndexInfo.java#L67
+    return num_blocks / 2; // FIXME: Lets divide by 42 for now
 }
 
 int IndexInfo::records_output() const {
@@ -40,8 +35,10 @@ int IndexInfo::distinct_values(std::string_view fname) const {
     return d_field_name == fname ? 1 : d_stat_info.distinct_values(d_field_name);
 }
 
-std::unique_ptr<Index> IndexInfo::open() {
-    return std::make_unique<Index>(d_tx, d_index_name, d_index_layout);
+std::unique_ptr<simpledb::index::Index> IndexInfo::open() {
+    // FIXME: Implement this once indexes are implemented
+    return nullptr;
+    //return std::make_unique<Index>(d_tx, d_index_name, d_index_layout);
 }
 
 std::shared_ptr<simpledb::record::Layout> IndexInfo::create_index_layout() {

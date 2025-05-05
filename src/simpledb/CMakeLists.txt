@@ -7,6 +7,7 @@ add_subdirectory(metadata)
 add_subdirectory(query)
 add_subdirectory(parse)
 add_subdirectory(plan)
+add_subdirectory(index)
 add_subdirectory(server)
 add_subdirectory(jdbc) 
 

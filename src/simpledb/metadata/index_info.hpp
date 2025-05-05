@@ -6,17 +6,9 @@
 #include "stat_info.hpp"
 #include "simpledb/record/schema.hpp"
 #include "simpledb/record/layout.hpp"
+#include "simpledb/index/Index.hpp"
 
 namespace simpledb::metadata {
-
-// TODO: Placeholder for the index class
-class Index {
-public:
-    Index(std::shared_ptr<simpledb::tx::Transaction> tx, std::string_view index_name, std::shared_ptr<simpledb::record::Layout> index_layout);
-    ~Index() = default;
-
-    static int search_cost(int x, int y);
-};
 
 class IndexInfo {
 public:
@@ -27,7 +19,7 @@ public:
               StatInfo stat_info);
     ~IndexInfo() = default;
 
-    std::unique_ptr<Index> open();
+    std::unique_ptr<simpledb::index::Index> open();
 
     int blocks_accessed() const;
     int records_output() const;

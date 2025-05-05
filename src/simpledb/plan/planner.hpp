@@ -2,14 +2,14 @@
 
 #include "simpledb/plan/query_planner.hpp"
 #include "simpledb/plan/update_planner.hpp"
-#include "simpledb/parser/parser.hpp"
-#include "simpledb/parser/query_data.hpp"
-#include "simpledb/parser/insert_data.hpp"
-#include "simpledb/parser/delete_data.hpp"
-#include "simpledb/parser/modify_data.hpp"
-#include "simpledb/parser/create_table_data.hpp"
-#include "simpledb/parser/create_view_data.hpp"
-#include "simpledb/parser/create_index_data.hpp"
+#include "simpledb/parse/parser.hpp"
+#include "simpledb/parse/query_data.hpp"
+#include "simpledb/parse/insert_data.hpp"
+#include "simpledb/parse/delete_data.hpp"
+#include "simpledb/parse/modify_data.hpp"
+#include "simpledb/parse/create_table_data.hpp"
+#include "simpledb/parse/create_view_data.hpp"
+#include "simpledb/parse/create_index_data.hpp"
 #include "simpledb/tx/transaction.hpp"
 
 #include <memory>

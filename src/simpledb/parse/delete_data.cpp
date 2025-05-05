@@ -1,4 +1,4 @@
-#include "simpledb/parser/delete_data.hpp"
+#include "simpledb/parse/delete_data.hpp"
 
 namespace simpledb::parse {
 

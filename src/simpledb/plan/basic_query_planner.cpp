@@ -3,7 +3,7 @@
 #include "simpledb/plan/select_plan.hpp"
 #include "simpledb/plan/project_plan.hpp"
 #include "simpledb/plan/product_plan.hpp"
-#include "simpledb/parser/parser.hpp"
+#include "simpledb/parse/parser.hpp"
 
 namespace simpledb::plan {
 

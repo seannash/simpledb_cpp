@@ -1,4 +1,4 @@
-#include "simpledb/parser/create_table_data.hpp"
+#include "simpledb/parse/create_table_data.hpp"
 
 namespace simpledb::parse {
 

@@ -5,19 +5,19 @@
 #include <vector>
 #include <variant>
 
-#include "simpledb/parser/lexer.hpp"
+#include "simpledb/parse/lexer.hpp"
 #include "simpledb/query/constant.hpp"
 #include "simpledb/query/expression.hpp"
 #include "simpledb/query/term.hpp"
 #include "simpledb/query/predicate.hpp"
 #include "simpledb/record/schema.hpp"
-#include "simpledb/parser/insert_data.hpp"
-#include "simpledb/parser/modify_data.hpp"
-#include "simpledb/parser/create_table_data.hpp"
-#include "simpledb/parser/delete_data.hpp"
-#include "simpledb/parser/create_index_data.hpp"
-#include "simpledb/parser/query_data.hpp"
-#include "simpledb/parser/create_view_data.hpp"
+#include "simpledb/parse/insert_data.hpp"
+#include "simpledb/parse/modify_data.hpp"
+#include "simpledb/parse/create_table_data.hpp"
+#include "simpledb/parse/delete_data.hpp"
+#include "simpledb/parse/create_index_data.hpp"
+#include "simpledb/parse/query_data.hpp"
+#include "simpledb/parse/create_view_data.hpp"
 
 namespace simpledb::parse {
 

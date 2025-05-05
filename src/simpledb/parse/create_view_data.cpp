@@ -1,4 +1,4 @@
-#include "simpledb/parser/create_view_data.hpp"
+#include "simpledb/parse/create_view_data.hpp"
 
 namespace simpledb::parse {
 

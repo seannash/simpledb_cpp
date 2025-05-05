@@ -1,4 +1,4 @@
-#include "simpledb/parser/lexer.hpp"
+#include "simpledb/parse/lexer.hpp"
 #include <cctype>
 #include <algorithm>
 

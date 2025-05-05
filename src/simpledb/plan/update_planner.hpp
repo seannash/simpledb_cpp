@@ -3,12 +3,12 @@
 
 #include "simpledb/plan/query_planner.hpp"
 #include "simpledb/metadata/metadata_manager.hpp"
-#include "simpledb/parser/insert_data.hpp"
-#include "simpledb/parser/delete_data.hpp"
-#include "simpledb/parser/modify_data.hpp"
-#include "simpledb/parser/create_table_data.hpp"
-#include "simpledb/parser/create_view_data.hpp"
-#include "simpledb/parser/create_index_data.hpp"
+#include "simpledb/parse/insert_data.hpp"
+#include "simpledb/parse/delete_data.hpp"
+#include "simpledb/parse/modify_data.hpp"
+#include "simpledb/parse/create_table_data.hpp"
+#include "simpledb/parse/create_view_data.hpp"
+#include "simpledb/parse/create_index_data.hpp"
 
 #include <memory>
 

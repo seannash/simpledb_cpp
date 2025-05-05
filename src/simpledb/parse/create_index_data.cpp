@@ -1,4 +1,4 @@
-#include "simpledb/parser/create_index_data.hpp"
+#include "simpledb/parse/create_index_data.hpp"
 
 namespace simpledb::parse {
 

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "simpledb/plan/plan.hpp"
-#include "simpledb/parser/query_data.hpp"
+#include "simpledb/parse/query_data.hpp"
 #include "simpledb/tx/transaction.hpp"
 
 #include <memory>

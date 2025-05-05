@@ -1,4 +1,4 @@
-#include "simpledb/parser/insert_data.hpp"
+#include "simpledb/parse/insert_data.hpp"
 
 namespace simpledb::parse {
 

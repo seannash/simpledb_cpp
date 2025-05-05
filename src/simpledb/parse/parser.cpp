@@ -1,4 +1,4 @@
-#include "simpledb/parser/parser.hpp"
+#include "simpledb/parse/parser.hpp"
 #include <stdexcept>
 
 #include <iostream>

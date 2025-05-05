@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "simpledb/parser/query_data.hpp"
+#include "simpledb/parse/query_data.hpp"
 
 namespace simpledb::parse {
 

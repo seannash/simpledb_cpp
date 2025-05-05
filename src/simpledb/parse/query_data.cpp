@@ -1,4 +1,4 @@
-#include "simpledb/parser/query_data.hpp"
+#include "simpledb/parse/query_data.hpp"
 #include <sstream>
 
 namespace simpledb::parse {

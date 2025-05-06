@@ -40,6 +40,7 @@ void FileManager::write(const BlockId& blockId, Page* page) {
     auto file = getFile(blockId.fileName());
     file->seekp(blockId.number() * d_blockSize);
     file->write(page->contents()->data(), d_blockSize);
+    file->flush();
 }
 
 BlockId FileManager::append(std::string filename) {

@@ -9,6 +9,7 @@ IndexSelectScan::IndexSelectScan(std::shared_ptr<simpledb::record::TableScan> ts
 , d_idx(std::move(idx))
 , d_val(val)
 {
+    before_first();
 }
 
 void IndexSelectScan::before_first()

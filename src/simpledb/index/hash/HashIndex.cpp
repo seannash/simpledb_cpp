@@ -14,7 +14,8 @@ HashIndex::HashIndex(std::shared_ptr<simpledb::tx::Transaction> tx,
     , d_indexLayout(std::move(index_layout))
     , d_searchKey()
     , d_ts(nullptr)
-{}
+{
+}
 
 void HashIndex::beforeFirst(const simpledb::query::Constant& dataval)
 {
@@ -22,7 +23,7 @@ void HashIndex::beforeFirst(const simpledb::query::Constant& dataval)
     d_searchKey = dataval;
     int bucket = d_searchKey.hashCode() % NUM_BUCKETS;
     std::string tableName = d_indexName + std::to_string(bucket);
-    d_ts = std::make_unique<simpledb::record::TableScan>(d_tx, tableName, d_indexLayout);
+    d_ts = std::make_shared<simpledb::record::TableScan>(d_tx, tableName, d_indexLayout);
 }
 
 bool HashIndex::next()
@@ -45,7 +46,6 @@ simpledb::record::RID HashIndex::getDataRid()
 void HashIndex::insert(const simpledb::query::Constant& dataval, 
                       const simpledb::record::RID& rid)                   
 {
-    std::cout << "Inserting " << dataval.to_string() << " into " << d_indexName << std::endl;
     beforeFirst(dataval);
     d_ts->insert();
     d_ts->set_int("block", rid.block_number());

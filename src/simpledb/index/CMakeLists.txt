@@ -41,3 +41,12 @@ target_link_libraries(index_update_test
     PRIVATE
         simpledb_server
 )
+
+add_executable(index_select_test
+    query/IndexSelectTest.cpp
+)
+
+target_link_libraries(index_select_test
+    PRIVATE
+        simpledb_server
+)

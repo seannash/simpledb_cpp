@@ -35,7 +35,7 @@ private:
     std::string d_indexName;
     std::shared_ptr<simpledb::record::Layout> d_indexLayout;
     simpledb::query::Constant d_searchKey;
-    std::unique_ptr<simpledb::record::TableScan> d_ts;
+    std::shared_ptr<simpledb::record::TableScan> d_ts;
 };
 
 } // namespace simpledb::index::hash

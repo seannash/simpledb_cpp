@@ -17,6 +17,9 @@ public:
               std::shared_ptr<simpledb::record::Schema> table_schema,
               std::shared_ptr<simpledb::tx::Transaction> tx,
               StatInfo stat_info);
+    // FIXME: Should these be here
+    IndexInfo(const IndexInfo& other) = default;
+    IndexInfo& operator=(const IndexInfo& other) = default;
     ~IndexInfo() = default;
 
     std::shared_ptr<simpledb::index::Index> open();

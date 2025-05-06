@@ -10,6 +10,7 @@ add_library(simpledb_index
     planner/IndexSelectPlan.cpp
     planner/IndexJoinPlan.cpp
     query/IndexJoinScan.cpp
+    planner/IndexUpdatePlanner.cpp
 )
 
 target_include_directories(simpledb_index

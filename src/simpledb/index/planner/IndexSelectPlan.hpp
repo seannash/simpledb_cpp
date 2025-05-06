@@ -13,7 +13,7 @@ public:
     int blocks_accessed() const override;
     int records_output() const override;
     int distinct_values(std::string_view field) const override;
-    record::Schema& schema() const override;
+    const record::Schema& schema() const override;
 
 private:
     std::shared_ptr<simpledb::plan::Plan> d_plan;

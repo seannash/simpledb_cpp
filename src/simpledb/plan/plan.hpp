@@ -15,7 +15,7 @@ public:
     virtual int blocks_accessed() const = 0;
     virtual int records_output() const = 0;
     virtual int distinct_values(std::string_view field) const = 0;
-    virtual record::Schema& schema() const = 0;
+    virtual const record::Schema& schema() const = 0;
 };
 
 } // namespace simpledb::plan

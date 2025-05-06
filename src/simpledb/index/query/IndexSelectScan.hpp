@@ -7,7 +7,7 @@
 #include "simpledb/index/Index.hpp"
 #include "simpledb/query/constant.hpp"
 
-namespace simpledb::index::planner {
+namespace simpledb::index::query {
 
 class IndexSelectScan : public simpledb::query::Scan {
 public:

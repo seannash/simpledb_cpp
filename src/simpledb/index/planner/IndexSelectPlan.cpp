@@ -1,7 +1,7 @@
 #include "simpledb/index/planner/IndexSelectPlan.hpp"
 #include "simpledb/index/Index.hpp"
 #include "simpledb/record/table_scan.hpp"
-#include "simpledb/index/planner/IndexSelectScan.hpp"
+#include "simpledb/index/query/IndexSelectScan.hpp"
 
 namespace simpledb::index::planner {
 
@@ -18,7 +18,7 @@ std::shared_ptr<simpledb::query::Scan> IndexSelectPlan::open()
 {
     auto ts = std::dynamic_pointer_cast<simpledb::record::TableScan>(d_plan->open());
     auto idx = d_ii->open();
-    return std::make_shared<simpledb::index::planner::IndexSelectScan>(ts, idx, d_val);
+    return std::make_shared<simpledb::index::query::IndexSelectScan>(ts, idx, d_val);
 }
 
 int IndexSelectPlan::blocks_accessed() const
@@ -36,7 +36,7 @@ int IndexSelectPlan::distinct_values(std::string_view field) const
     return d_ii->distinct_values(field);
 }
 
-simpledb::record::Schema& IndexSelectPlan::schema() const
+const simpledb::record::Schema& IndexSelectPlan::schema() const
 {
     return d_plan->schema();
 }

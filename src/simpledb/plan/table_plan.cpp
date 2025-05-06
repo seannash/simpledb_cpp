@@ -28,7 +28,7 @@ int TablePlan::distinct_values(std::string_view field) const {
     return d_stat_info.distinct_values(field);
 }
 
-record::Schema& TablePlan::schema() const {
+const record::Schema& TablePlan::schema() const {
     return d_layout->schema();
 }
 

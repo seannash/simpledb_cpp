@@ -1,13 +1,13 @@
-#include "simpledb/index/planner/IndexSelectScan.hpp"
+#include "simpledb/index/query/IndexSelectScan.hpp"
 
-namespace simpledb::index::planner {
+namespace simpledb::index::query {
 
 IndexSelectScan::IndexSelectScan(std::shared_ptr<simpledb::record::TableScan> ts,
                                 std::shared_ptr<simpledb::index::Index> idx,
                                 const simpledb::query::Constant& val)
-    : d_ts(std::move(ts))
-    , d_idx(std::move(idx))
-    , d_val(val)
+: d_ts(std::move(ts))
+, d_idx(std::move(idx))
+, d_val(val)
 {
 }
 

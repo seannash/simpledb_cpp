@@ -39,7 +39,7 @@ int SelectPlan::distinct_values(std::string_view field) const {
     }
 }
 
-record::Schema& SelectPlan::schema() const {
+const record::Schema& SelectPlan::schema() const {
     return d_plan->schema();
 }
 

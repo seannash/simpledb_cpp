@@ -26,7 +26,7 @@ public:
 private:
     std::shared_ptr<plan::Plan> d_plan; // FIXME: Only need Schema to be returned as something with a longer lifetime
     std::shared_ptr<query::Scan> d_scan;
-    record::Schema& d_schema;
+    const simpledb::record::Schema& d_schema;
     simpledb::jdbc::embedded::EmbeddedConnection *d_conn;
     std::shared_ptr<::jdbc::MetaData> d_meta_data;
 };

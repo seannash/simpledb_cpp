@@ -6,8 +6,10 @@ add_library(simpledb_index
     btree/BTreeDir.cpp
     btree/DirEntry.cpp
     btree/BTreeIndex.cpp
+    query/IndexSelectScan.cpp
     planner/IndexSelectPlan.cpp
-    planner/IndexSelectScan.cpp
+    planner/IndexJoinPlan.cpp
+    query/IndexJoinScan.cpp
 )
 
 target_include_directories(simpledb_index

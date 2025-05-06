@@ -1,11 +1,13 @@
 add_library(simpledb_index
     Index.cpp
-    HashIndex/HashIndex.cpp
+    hash/HashIndex.cpp
     btree/BTPage.cpp
     btree/BTreeLeaf.cpp
     btree/BTreeDir.cpp
     btree/DirEntry.cpp
     btree/BTreeIndex.cpp
+    planner/IndexSelectPlan.cpp
+    planner/IndexSelectScan.cpp
 )
 
 target_include_directories(simpledb_index

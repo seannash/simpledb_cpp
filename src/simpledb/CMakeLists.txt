@@ -14,6 +14,7 @@ add_subdirectory(jdbc)
 add_library(simpledb STATIC
     $<TARGET_OBJECTS:jdbc>
     $<TARGET_OBJECTS:simpledb_file>
+    $<TARGET_OBJECTS:simpledb_index>
     $<TARGET_OBJECTS:simpledb_log>
     $<TARGET_OBJECTS:simpledb_buffer>
     $<TARGET_OBJECTS:simpledb_tx>

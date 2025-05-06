@@ -1,10 +1,10 @@
-#include "simpledb/index/HashIndex/HashIndex.hpp"
+#include "simpledb/index/hash/HashIndex.hpp"
 
 namespace {
 const int NUM_BUCKETS = 100;
 }
 
-namespace simpledb::index::hashindex {
+namespace simpledb::index::hash {
 
 HashIndex::HashIndex(std::shared_ptr<simpledb::tx::Transaction> tx, 
                     std::string_view index_name, 
@@ -76,4 +76,4 @@ int HashIndex::searchCost(int numBlocks, int rpb)
     return numBlocks / NUM_BUCKETS;
 }
 
-} // namespace simpledb::index::HashIndex 
+} // namespace simpledb::index::hash

@@ -1,6 +1,8 @@
 #include "index_info.hpp"
 #include "simpledb/record/schema.hpp"
 #include "simpledb/index/Index.hpp"
+#include "simpledb/index/hash/HashIndex.hpp"
+#include "simpledb/index/btree/BTreeIndex.hpp"
 #include "jdbc/column_types.hpp"
 
 namespace simpledb::metadata {
@@ -35,10 +37,9 @@ int IndexInfo::distinct_values(std::string_view fname) const {
     return d_field_name == fname ? 1 : d_stat_info.distinct_values(d_field_name);
 }
 
-std::unique_ptr<simpledb::index::Index> IndexInfo::open() {
-    // FIXME: Implement this once indexes are implemented
-    return nullptr;
-    //return std::make_unique<Index>(d_tx, d_index_name, d_index_layout);
+std::shared_ptr<simpledb::index::Index> IndexInfo::open() {
+    // FIXME: Make switchable with BTreeIndex
+    return std::make_shared<simpledb::index::hash::HashIndex>(d_tx, d_index_name, d_index_layout);
 }
 
 std::shared_ptr<simpledb::record::Layout> IndexInfo::create_index_layout() {

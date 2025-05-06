@@ -15,6 +15,7 @@ target_link_libraries(simpledb_server
         simpledb_buffer
         simpledb_log
         simpledb_file
+        simpledb_index
         simpledb_record
         simpledb_metadata
         simpledb_query

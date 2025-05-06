@@ -19,7 +19,7 @@ public:
               StatInfo stat_info);
     ~IndexInfo() = default;
 
-    std::unique_ptr<simpledb::index::Index> open();
+    std::shared_ptr<simpledb::index::Index> open();
 
     int blocks_accessed() const;
     int records_output() const;

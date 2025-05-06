@@ -15,9 +15,9 @@ BTreeIndex::BTreeIndex(std::shared_ptr<simpledb::tx::Transaction> tx,
     , d_rootblk(simpledb::file::BlockId(idxname + "dir", 0))
 {
     
-    if (tx->size(d_leaftbl) == 0) {
-        auto blk = tx->append(d_leaftbl);
-        BTPage node{tx, blk, d_leafLayout};
+    if (d_tx->size(d_leaftbl) == 0) {
+        auto blk = d_tx->append(d_leaftbl);
+        BTPage node{d_tx, blk, d_leafLayout};
         node.format(blk, -1);
     }
     simpledb::record::Schema dirsch {};
@@ -25,9 +25,9 @@ BTreeIndex::BTreeIndex(std::shared_ptr<simpledb::tx::Transaction> tx,
     dirsch.add("dataval", d_leafLayout->schema());
     std::string dirtbl = idxname + "dir";
     d_dirLayout = std::make_shared<simpledb::record::Layout>(dirsch);
-    if (tx->size(dirtbl) == 0) {
-        tx->append(dirtbl);
-        BTPage node{tx, d_rootblk, d_dirLayout};
+    if (d_tx->size(dirtbl) == 0) {
+        d_tx->append(dirtbl);
+        BTPage node{d_tx, d_rootblk, d_dirLayout};
         node.format(d_rootblk, -1);
         auto fldtype = dirsch.get_type("dataval");
         simpledb::query::Constant minval = (fldtype == jdbc::ColumnType::INT)

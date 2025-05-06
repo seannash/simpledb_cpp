@@ -39,7 +39,8 @@ int IndexInfo::distinct_values(std::string_view fname) const {
 
 std::shared_ptr<simpledb::index::Index> IndexInfo::open() {
     // FIXME: Make switchable with BTreeIndex
-    return std::make_shared<simpledb::index::hash::HashIndex>(d_tx, d_index_name, d_index_layout);
+    // return std::make_shared<simpledb::index::hash::HashIndex>(d_tx, d_index_name, d_index_layout);
+    return std::make_shared<simpledb::index::btree::BTreeIndex>(d_tx, d_index_name, d_index_layout);
 }
 
 std::shared_ptr<simpledb::record::Layout> IndexInfo::create_index_layout() {

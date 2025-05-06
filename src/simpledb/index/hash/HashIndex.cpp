@@ -28,7 +28,7 @@ void HashIndex::beforeFirst(const simpledb::query::Constant& dataval)
 bool HashIndex::next()
 {
     while (d_ts->next()) {
-        if (d_ts->get_val("dataval") == d_searchKey.to_string()) {
+        if (d_ts->get_val("dataval") == d_searchKey) {
             return true;
         }
     }
@@ -43,13 +43,14 @@ simpledb::record::RID HashIndex::getDataRid()
 }
 
 void HashIndex::insert(const simpledb::query::Constant& dataval, 
-                      const simpledb::record::RID& rid)
+                      const simpledb::record::RID& rid)                   
 {
+    std::cout << "Inserting " << dataval.to_string() << " into " << d_indexName << std::endl;
     beforeFirst(dataval);
     d_ts->insert();
     d_ts->set_int("block", rid.block_number());
     d_ts->set_int("id", rid.slot());
-    d_ts->set_val("dataval", dataval.to_string());
+    d_ts->set_val("dataval", dataval);
 }
 
 void HashIndex::delete_row(const simpledb::query::Constant& dataval, 

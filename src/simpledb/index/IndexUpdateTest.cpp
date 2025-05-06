@@ -25,8 +25,14 @@ int main() {
 
         // Create a map containing all indexes for STUDENT
         std::unordered_map<std::string, std::shared_ptr<index::Index>> indexes;
+        
         auto idxinfo = mdm->get_index_info("student", tx);
+        if (idxinfo.empty()) {
+            mdm->create_index("student-sid", "student", "sid", tx);    
+            idxinfo= mdm->get_index_info("student", tx);
+        }
         for (auto& [fldname, info] : idxinfo) {
+            std::cout << "Index on " << fldname << std::endl;
             indexes[fldname] = info.open();
         }
 
@@ -41,6 +47,7 @@ int main() {
         // Then insert a record into each of the indexes
         auto datarid = studentscan->current_rid(); // FIXME: should current_rid() be renamed getRid()?
         for (const auto& [fldname, idx] : indexes) {
+            std::cout << "Inserting into index on " << fldname << std::endl;
             auto dataval = studentscan->get_val(fldname);
             idx->insert(dataval, datarid);
         }

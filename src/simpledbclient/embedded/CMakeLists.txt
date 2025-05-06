@@ -37,3 +37,10 @@ target_link_libraries(student_major
 target_include_directories(student_major PRIVATE
     simpledb
 )
+
+add_executable(create_student_db_index
+    CreateStudentDB-index.cpp
+)
+target_link_libraries(create_student_db_index
+    simpledb
+)

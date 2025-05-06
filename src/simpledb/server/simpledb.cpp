@@ -1,6 +1,7 @@
 #include "simpledb/server/simpledb.hpp"
 #include "simpledb/plan/basic_query_planner.hpp"
 #include "simpledb/plan/basic_update_planner.hpp"
+#include "simpledb/index/planner/IndexUpdatePlanner.hpp"
 
 #include <filesystem>
 
@@ -30,7 +31,10 @@ SimpleDB::SimpleDB(std::string_view db_directory, int block_size, int buffer_siz
     d_metadata_manager = std::make_shared<simpledb::metadata::MetadataManager>(is_new, tx);
     tx->commit();
     std::shared_ptr<simpledb::plan::QueryPlanner> qplanner = std::make_shared<simpledb::plan::BasicQueryPlanner>(d_metadata_manager);
-    std::shared_ptr<simpledb::plan::UpdatePlanner> uplanner = std::make_shared<simpledb::plan::BasicUpdatePlanner>(d_metadata_manager);
+    
+    //std::shared_ptr<simpledb::plan::UpdatePlanner> uplanner = std::make_shared<simpledb::plan::BasicUpdatePlanner>(d_metadata_manager);
+    std::shared_ptr<simpledb::plan::UpdatePlanner> uplanner = std::make_shared<simpledb::index::planner::IndexUpdatePlanner>(d_metadata_manager);
+    
     d_planner = std::make_shared<simpledb::plan::Planner>(qplanner, uplanner);
 }
 

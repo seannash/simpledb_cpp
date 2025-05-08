@@ -4,6 +4,7 @@ namespace simpledb::record {
 
 class RID {
 public:
+    RID() = default;
     RID(int block_number, int slot);
     int block_number() const;
     int slot() const;

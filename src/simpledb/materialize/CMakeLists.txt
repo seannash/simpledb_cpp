@@ -1,6 +1,9 @@
 add_library(simpledb_materialize
     TempTable.cpp
     MaterializationPlan.cpp
+    RecordComparator.cpp
+    SortPlan.cpp
+    SortScan.cpp
 )
 
 target_include_directories(simpledb_materialize

@@ -9,6 +9,8 @@ add_library(simpledb_materialize
     GroupByPlan.cpp
     GroupByScan.cpp
     GroupValue.cpp
+    MergeJoinScan.cpp
+    MergeJoinPlan.cpp
 )
 
 target_include_directories(simpledb_materialize

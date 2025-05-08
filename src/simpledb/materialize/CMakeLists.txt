@@ -1,6 +1,6 @@
 add_library(simpledb_materialize
     TempTable.cpp
-    MaterializationPlan.cpp
+    MaterializePlan.cpp
     RecordComparator.cpp
     SortPlan.cpp
     SortScan.cpp

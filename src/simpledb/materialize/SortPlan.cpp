@@ -1,5 +1,5 @@
 #include "simpledb/materialize/SortPlan.hpp"
-#include "simpledb/materialize/MaterializationPlan.hpp"
+#include "simpledb/materialize/MaterializePlan.hpp"
 #include "simpledb/materialize/TempTable.hpp"
 #include "simpledb/materialize/RecordComparator.hpp"
 #include "simpledb/materialize/SortScan.hpp"
@@ -28,7 +28,7 @@ std::shared_ptr<simpledb::query::Scan> SortPlan::open() {
 }
 
 int SortPlan::blocks_accessed() const {
-    MaterializationPlan mp{d_tx, d_plan};
+    MaterializePlan mp{d_tx, d_plan};
     return mp.blocks_accessed();
 }
 

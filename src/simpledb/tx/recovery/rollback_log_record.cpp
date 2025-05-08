@@ -28,7 +28,7 @@ std::string RollbackLogRecord::to_string() const {
     return ss.str();
 }
 
-int RollbackLogRecord::write_to_log(std::shared_ptr<simpledb::log::LogManager> lm, int txnum) {
+int RollbackLogRecord::write_to_log(std::shared_ptr<simpledb::log::LogMgr> lm, int txnum) {
     std::vector<char> buf(sizeof(int)*2, 0);
     *reinterpret_cast<int*>(buf.data()) = ROLLBACK;
     *reinterpret_cast<int*>(buf.data() + sizeof(int)) = txnum;

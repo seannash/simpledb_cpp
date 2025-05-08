@@ -3,8 +3,8 @@
 #include "simpledb/tx/recovery/log_record.hpp"
 #include <span>
 #include <string>
-#include "simpledb/log/log_manager.hpp"
-#include "simpledb/file/block_id.hpp"
+#include "simpledb/log/LogMgr.hpp"
+#include "simpledb/file/BlockId.hpp"
 
 namespace simpledb::tx::recovery {
 
@@ -16,7 +16,7 @@ public:
     int txnum() const override;
     void undo(Transaction& tx) override;
     std::string to_string() const override;
-    static int write_to_log(std::shared_ptr<simpledb::log::LogManager> lm, int txnum, simpledb::file::BlockId blk, int offset, std::string_view val);
+    static int write_to_log(std::shared_ptr<simpledb::log::LogMgr> lm, int txnum, simpledb::file::BlockId blk, int offset, std::string_view val);
 
 private:
     int d_txnum;

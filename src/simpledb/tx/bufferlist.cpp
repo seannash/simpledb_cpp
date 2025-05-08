@@ -3,7 +3,7 @@
 
 namespace simpledb::tx {
 
-BufferList::BufferList(std::shared_ptr<simpledb::buffer::BufferManager> bm)
+BufferList::BufferList(std::shared_ptr<simpledb::buffer::BufferMgr> bm)
     : d_buffers(), d_pins(), d_bm(std::move(bm)) {
 }
 

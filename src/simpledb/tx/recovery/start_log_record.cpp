@@ -1,4 +1,5 @@
 #include "simpledb/tx/recovery/start_log_record.hpp"
+
 #include <iostream>
 #include <stdexcept>
 #include <sstream>
@@ -29,7 +30,7 @@ std::string StartLogRecord::to_string() const {
     return ss.str();
 }
 
-int StartLogRecord::write_to_log(std::shared_ptr<simpledb::log::LogManager> lm, int txnum) {
+int StartLogRecord::write_to_log(std::shared_ptr<simpledb::log::LogMgr> lm, int txnum) {
     std::vector<char> buf(sizeof(int)*2, 0);
     *reinterpret_cast<int*>(buf.data()) = START;
     *reinterpret_cast<int*>(buf.data() + sizeof(int)) = txnum;

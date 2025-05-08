@@ -22,32 +22,32 @@ Constant::Constant(std::string val)
 , d_val(std::move(val)) {
 }
 
-bool Constant::is_null() const {
+bool Constant::isNull() const {
     return d_is_null;
 }
 
-int Constant::as_int() const {
+int Constant::asInt() const {
     if (!d_is_null && d_type != ::jdbc::ColumnType::INT) {
         throw std::runtime_error("Constant is not an integer");
     }
     return std::any_cast<int>(d_val);
 }
 
-std::string Constant::as_string() const {
+std::string Constant::asString() const {
     if (!d_is_null && d_type != ::jdbc::ColumnType::STRING) {
         throw std::runtime_error("Constant is not a string");
     }
     return std::any_cast<std::string>(d_val);
 }
 
-std::string Constant::to_string() const {
+std::string Constant::toString() const {
     if (d_is_null) {
         return "null";
     }
     if (d_type == ::jdbc::ColumnType::INT) {
-        return std::to_string(as_int());
+        return std::to_string(asInt());
     } else {
-        return as_string();
+        return asString();
     }
 }
 

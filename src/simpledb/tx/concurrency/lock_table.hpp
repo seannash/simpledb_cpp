@@ -1,6 +1,6 @@
 #pragma once
 
-#include "simpledb/file/block_id.hpp"
+#include "simpledb/file/BlockId.hpp"
 
 #include <chrono>
 #include <mutex>

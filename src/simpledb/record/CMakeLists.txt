@@ -1,9 +1,9 @@
 add_library(simpledb_record
-    schema.cpp
-    layout.cpp
-    record_page.cpp
-    table_scan.cpp
-    rid.cpp
+    Schema.cpp
+    Layout.cpp
+    RecordPage.cpp
+    TableScan.cpp
+    RID.cpp
 )
 
 target_include_directories(simpledb_record
@@ -20,7 +20,7 @@ target_link_libraries(simpledb_record
 )
 
 add_executable(record_test
-    record_test.cpp
+    RecordTest.cpp
 )
 target_include_directories(record_test
     PUBLIC
@@ -33,7 +33,7 @@ target_link_libraries(record_test
 )
 
 add_executable(table_scan_test
-    table_scan_test.cpp
+    TableScanTest.cpp
 )
 target_include_directories(table_scan_test
     PRIVATE

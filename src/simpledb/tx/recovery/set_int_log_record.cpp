@@ -1,12 +1,12 @@
 #include "simpledb/tx/recovery/set_int_log_record.hpp"
+
 #include <stdexcept>
 #include <sstream>
 #include <span>
 #include <cstring>
 #include <vector>
 #include <iostream>
-#include "simpledb/file/buffer_wrapper.hpp"
-#include "simpledb/log/log_manager.hpp"
+
 namespace simpledb::tx::recovery {
 
 namespace {
@@ -49,7 +49,7 @@ int SetIntLogRecord::txnum() const {
 
 void SetIntLogRecord::undo(Transaction& tx) {
     tx.pin(d_blk);
-    tx.set_int(d_blk, d_offset, d_val, false); // Do not log this
+    tx.setInt(d_blk, d_offset, d_val, false); // Do not log this
     tx.unpin(d_blk);
 }
 
@@ -59,7 +59,7 @@ std::string SetIntLogRecord::to_string() const {
     return ss.str();
 }
 
-int SetIntLogRecord::write_to_log(std::shared_ptr<simpledb::log::LogManager> lm, int txnum, simpledb::file::BlockId blk, int offset, int val) {
+int SetIntLogRecord::write_to_log(std::shared_ptr<simpledb::log::LogMgr> lm, int txnum, simpledb::file::BlockId blk, int offset, int val) {
     int tpos = sizeof(int);
     int fpos = tpos + sizeof(int);
     int bpos = fpos + blk.fileName().size() + sizeof(int);

@@ -12,12 +12,12 @@ public:
 
     virtual ~Scan() = default;
 
-    virtual void before_first() = 0;
+    virtual void beforeFirst() = 0;
     virtual bool next() = 0;
-    virtual int get_int(std::string_view field) = 0;
-    virtual std::string get_string(std::string_view field) = 0;
-    virtual Constant get_val(std::string_view field) = 0;
-    virtual bool has_field(std::string_view field) = 0;
+    virtual int getInt(std::string_view field) = 0;
+    virtual std::string getString(std::string_view field) = 0;
+    virtual Constant getVal(std::string_view field) = 0;
+    virtual bool hasField(std::string_view field) = 0;
     virtual void close() = 0;    
 
 };

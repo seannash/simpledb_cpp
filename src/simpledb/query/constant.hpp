@@ -1,6 +1,6 @@
 #pragma once
 
-#include "jdbc/column_types.hpp"
+#include "jdbc/ColumnType.hpp"
 
 #include <any>
 #include <string>
@@ -14,15 +14,15 @@ public:
     Constant(int val);
     Constant(std::string val);
 
-    bool is_null() const;
+    bool isNull() const;
 
-    int as_int() const;
-    std::string as_string() const;
+    int asInt() const;
+    std::string asString() const;
 
     std::strong_ordering operator<=>(const Constant& other) const;
     bool operator==(const Constant& other) const;
 
-    std::string to_string() const;
+    std::string toString() const;
 
 
     int hashCode() const;

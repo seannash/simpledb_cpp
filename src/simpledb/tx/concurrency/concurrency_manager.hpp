@@ -1,6 +1,7 @@
 #pragma once
 
-#include "lock_table.hpp"
+#include "simpledb/file/BlockId.hpp"
+#include "simpledb/tx/concurrency/lock_table.hpp"
 #include <unordered_map>
 #include <string>
 

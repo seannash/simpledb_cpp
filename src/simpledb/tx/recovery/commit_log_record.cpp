@@ -1,8 +1,5 @@
 #include "simpledb/tx/recovery/commit_log_record.hpp"
 
-#include "simpledb/log/log_manager.hpp"
-#include "simpledb/file/block_id.hpp"
-
 #include <stdexcept>
 #include <sstream>
 #include <vector>
@@ -43,7 +40,7 @@ std::string CommitLogRecord::to_string() const {
     return ss.str();
 }
 
-int CommitLogRecord::write_to_log(std::shared_ptr<simpledb::log::LogManager> lm, int txnum) {
+int CommitLogRecord::write_to_log(std::shared_ptr<simpledb::log::LogMgr> lm, int txnum) {
     std::vector<char> buf(sizeof(int)*2, 0);
     *reinterpret_cast<int*>(buf.data()) = COMMIT;
     std::memcpy(buf.data() + sizeof(int), &txnum, sizeof(int));

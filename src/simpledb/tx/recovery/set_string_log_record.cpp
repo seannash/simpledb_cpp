@@ -5,7 +5,7 @@
 #include <cstring>
 #include <vector>
 #include <iostream>
-#include "simpledb/file/buffer_wrapper.hpp"
+#include "simpledb/file/BufferWrapper.hpp"
 
 namespace simpledb::tx::recovery {
 
@@ -41,7 +41,7 @@ int SetStringLogRecord::txnum() const {
 
 void SetStringLogRecord::undo(Transaction& tx) {
     tx.pin(d_blk);
-    tx.set_string(d_blk, d_offset, d_val, false); // Do not log this
+    tx.setString(d_blk, d_offset, d_val, false); // Do not log this
     tx.unpin(d_blk);
 }
 
@@ -51,7 +51,7 @@ std::string SetStringLogRecord::to_string() const {
     return ss.str();
 }
 
-int SetStringLogRecord::write_to_log(std::shared_ptr<simpledb::log::LogManager> lm, int txnum, simpledb::file::BlockId blk, int offset, std::string_view val) {
+int SetStringLogRecord::write_to_log(std::shared_ptr<simpledb::log::LogMgr> lm, int txnum, simpledb::file::BlockId blk, int offset, std::string_view val) {
     int tpos = sizeof(int);
     int fpos = tpos + sizeof(int);
     int bpos = fpos + blk.fileName().size()+sizeof(int);

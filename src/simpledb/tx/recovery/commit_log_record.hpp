@@ -1,8 +1,8 @@
 #pragma once
 
 #include "simpledb/tx/recovery/log_record.hpp"
-#include "simpledb/log/log_manager.hpp"
-#include "simpledb/file/block_id.hpp"
+#include "simpledb/log/LogMgr.hpp"
+#include "simpledb/file/BlockId.hpp"
 #include <span>
 #include <iostream>
 
@@ -17,7 +17,7 @@ public:
     void undo(Transaction& tx) override;
     std::string to_string() const override;
 
-    static int write_to_log(std::shared_ptr<simpledb::log::LogManager> lm, int txnum);
+    static int write_to_log(std::shared_ptr<simpledb::log::LogMgr> lm, int txnum);
 
 private:
     int d_txnum;

@@ -12,7 +12,6 @@ namespace simpledb::materialize {
 class TempTable {
 public:
     TempTable(std::shared_ptr<simpledb::tx::Transaction> tx, 
-            std::string tblname,
             std::shared_ptr<simpledb::record::Schema> schema);
 
     std::shared_ptr<simpledb::record::TableScan> open() const;

@@ -67,12 +67,7 @@ bool Constant::operator==(const Constant& other) const {
 }
 
 int Constant::hashCode() const {
-    if (d_is_null) {
-        return 0;
-
-    }
-    // FXIME Make std::hasher members
-    switch (d_type) {
+switch (d_type) {
         case ::jdbc::ColumnType::INT:
             return std::hash<int>{}(as_int());
         case ::jdbc::ColumnType::STRING:
@@ -80,7 +75,6 @@ int Constant::hashCode() const {
         default:
             throw std::runtime_error("Unsupported constant type");
     }
-    return 0;
 }
 
 std::ostream& operator<<(std::ostream& os, const Constant& c) {

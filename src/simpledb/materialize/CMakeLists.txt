@@ -4,6 +4,11 @@ add_library(simpledb_materialize
     RecordComparator.cpp
     SortPlan.cpp
     SortScan.cpp
+    MaxFn.cpp
+    AggregateFn.cpp
+    GroupByPlan.cpp
+    GroupByScan.cpp
+    GroupValue.cpp
 )
 
 target_include_directories(simpledb_materialize

@@ -1,6 +1,6 @@
 add_library(simpledb_buffer
-    buffer.cpp
-    buffer_manager.cpp
+    Buffer.cpp
+    BufferMgr.cpp
 )
 
 target_include_directories(simpledb_buffer
@@ -16,7 +16,7 @@ target_link_libraries(simpledb_buffer
 
 # Add test executable
 add_executable(buffer_test
-    buffer_test.cpp
+    BufferTest.cpp
 )
 target_include_directories(buffer_test
     PUBLIC

@@ -1,10 +1,9 @@
 # Create file system library
 add_library(simpledb_file
-    page.cpp
-    buffer_wrapper.cpp
-    file_manager.cpp  
-    block_id.cpp
-    buffer_wrapper.cpp
+    BlockId.cpp
+    BufferWrapper.cpp
+    FileMgr.cpp  
+    Page.cpp
 )
 
 # Set include directories
@@ -23,13 +22,13 @@ set_target_properties(simpledb_file PROPERTIES
     OUTPUT_NAME "file"
 )
 
-add_executable(page_test page.t.cpp)
+add_executable(page_test Page.t.cpp)
 target_link_libraries(page_test PRIVATE simpledb_file Catch2::Catch2WithMain)
 
-add_executable(block_id_test block_id.t.cpp)
+add_executable(block_id_test BlockId.t.cpp)
 target_link_libraries(block_id_test PRIVATE simpledb_file Catch2::Catch2WithMain)
 
-add_executable(file_manager_test file_manager.t.cpp)
+add_executable(file_manager_test FileMgr.t.cpp)
 target_link_libraries(file_manager_test PRIVATE simpledb_file Catch2::Catch2WithMain)
 
 # Register test with CTest

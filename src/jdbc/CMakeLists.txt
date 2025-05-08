@@ -1,10 +1,10 @@
 add_library(jdbc STATIC
-    driver.cpp
-    connection.cpp
-    statement.cpp
-    result_set.cpp
-    sql_exception.cpp
-    metadata.cpp
+    Driver.cpp
+    Connection.cpp
+    Metadata.cpp
+    ResultSet.cpp
+    Statement.cpp
+    SQLException.cpp
 )
 
 target_include_directories(jdbc

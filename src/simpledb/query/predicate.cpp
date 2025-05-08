@@ -31,7 +31,7 @@ int Predicate::reduction_factor(const simpledb::plan::Plan& plan) const {
     return factor;
 }
 
-std::shared_ptr<Predicate> Predicate::select_sub_predicates(const simpledb::record::Schema& schema) const {
+std::shared_ptr<Predicate> Predicate::select_sub_pred(const simpledb::record::Schema& schema) const {
     Predicate result;
     for (const auto& term : d_terms) {
         if (term->applies_to(schema)) {
@@ -44,7 +44,7 @@ std::shared_ptr<Predicate> Predicate::select_sub_predicates(const simpledb::reco
     return std::make_shared<Predicate>(result);
 }
 
-std::shared_ptr<Predicate> Predicate::join_sub_predicates(
+std::shared_ptr<Predicate> Predicate::join_sub_pred(
     const simpledb::record::Schema& schema1,
     const simpledb::record::Schema& schema2) const
 {

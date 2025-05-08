@@ -24,6 +24,7 @@ public:
 
     std::string to_string() const;
 
+
     int hashCode() const;
     
 private:

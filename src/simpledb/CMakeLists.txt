@@ -10,6 +10,7 @@ add_subdirectory(plan)
 add_subdirectory(index)
 add_subdirectory(materialize)
 add_subdirectory(multibuffer)
+add_subdirectory(opt)
 add_subdirectory(server)
 add_subdirectory(jdbc) 
 
@@ -29,6 +30,7 @@ add_library(simpledb STATIC
     $<TARGET_OBJECTS:simpledb_jdbc>
     $<TARGET_OBJECTS:simpledb_materialize>
     $<TARGET_OBJECTS:simpledb_multibuffer>
+    $<TARGET_OBJECTS:simpledb_opt>
 )
 
 target_include_directories(simpledb
